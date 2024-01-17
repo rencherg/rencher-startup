@@ -20,8 +20,19 @@ There are many popular forums and message boards these days, but the problem tha
 * All comments are shown in a compact, yet organized space, making it easier to read what is going on.
 * A table showing the most recent comments in real time
 * An easy to use way to login to the site.
+* Ability to register with your current location and see the weather for your current location each time you login.
 
 ## How will all technologies be used?
+
+* **HTML** - Gives clear structure and organization to the way the site and the comments are laid out.
+
+* **CSS** - Gives an aesthetically pleasing look to the site, using a consistent color scheme and style across the entire site.
+
+* **Javascript** - Gives the ability to login and make calls to the backend to get post and comment info.
+
+* **Service** - A geolocation service will be used to get the latitude and longitude from the user's current city and then a weather service will use the lat and long coordinates to get the weather for the current user.
+
+* **React** - React will give a stylish look to the site to attract users and better display info
 
 * **Authentication** - All users must create an account. To post or comment users will be required to log in to the account they created. The authentication service will be used to manage accounts.
 
