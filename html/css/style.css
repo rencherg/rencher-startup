@@ -1,4 +1,49 @@
 html{
     height:100%;
     /* background-color: blue; */
+    font-family: sans-serif;
+}
+
+body{
+    display:flex;
+    flex-direction: column;
+    height:100%;
+    margin: 0px;
+}
+
+main{
+    flex: 1;
+}
+
+header{
+    background-color: grey;
+    margin: 0px;
+    padding: 0px;
+    border:0px;
+}
+
+footer{
+    background-color:aqua;
+}
+
+.header-left{
+    float:left;
+}
+
+.header-right{
+    float:right;
+}
+
+.header-card{
+    height:100%;
+    margin-top: 0px;
+    /* padding: 100%; */
+    align-self: center;
+    align-items:center;
+    justify-content: center;
+    text-align: center;
+}
+
+.header-card:hover{
+    background-color: greenyellow;
 }
