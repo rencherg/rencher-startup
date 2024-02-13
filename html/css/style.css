@@ -28,11 +28,37 @@ footer{
 
 .header-left{
     float:left;
+    margin-left: 10px;
+    color: black;
 }
 
 .header-right{
     float:right;
+    margin-right: 10px;
+    color: black;
 }
+
+
+a{
+    text-decoration: none;
+}
+
+a:visited{
+    color:black;
+}
+
+.nav-svg{
+    height:40px;
+    margin-top: 13px;
+}
+
+/* .nav-title{
+    font-size: 25px;
+}
+
+.nav-subtitle{
+    font-size: 23px;
+} */
 
 .header-card{
     height:100%;
@@ -47,3 +73,21 @@ footer{
 .header-card:hover{
     background-color: greenyellow;
 }
+
+/* .navbar{
+    position: fixed;
+    width:100%;
+    transition: background-color 1s;
+  
+  }
+  
+  .rect{
+    width:100%;
+    height:100vh;
+  }
+  #green{
+    background-color:#559065;
+  }
+  #blue{
+    background-color:#7eb3a7;
+  } */
