@@ -98,7 +98,7 @@ h1{
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-
+    border-radius: 8px;
 }
 .about-content{ 
     margin-top: 20px;
@@ -144,7 +144,7 @@ input{
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-
+    border-radius: 8px;
 }
 
 #main-link{
@@ -232,5 +232,22 @@ span{
 
     .dissapearing-bar-item{
         display:none;
+    }
+
+    .form-img{
+        width: 90%;
+    }
+
+    .about-img{
+        width: 90%;
+    }
+
+    .about-content{
+        width: 90%;
+        
+    }
+
+    .websocket-content{
+        width: 90%;
     }
   }
