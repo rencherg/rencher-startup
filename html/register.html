@@ -15,15 +15,17 @@
         <main>
             <h1>Register</h1>
             <form>
-                <label for="username">Username</label><br>
-                <input type="text" id="username" name="username" value=""><br>
-                <label for="zip">Zip Code</label><br>
-                <input type="number" id="zip" name="zip" min="5" max="5"><br>
-                <label for="password">Password</label><br>
-                <input type="password" id="password" name="password" value=""><br>
-                <label for="password-confirm">Confirm password</label><br>
-                <input type="password" id="password-confirm" name="password-confirm" value=""><br>
-                <input type="submit" value="Submit">
+                <div class="register-form">
+                    <label for="username">Username</label><br>
+                    <input type="text" id="username" name="username" value=""><br>
+                    <label for="zip">Zip Code</label><br>
+                    <input type="number" id="zip" name="zip" minlength="5" maxlength="5"><br>
+                    <label for="password">Password</label><br>
+                    <input type="password" id="password" name="password" value=""><br>
+                    <label for="password-confirm">Confirm password</label><br>
+                    <input type="password" id="password-confirm" name="password-confirm" value=""><br>
+                    <input type="submit" class="form-button" value="Submit">
+                </div>
             </form> 
         </main>
         <footer>

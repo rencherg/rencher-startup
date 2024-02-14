@@ -151,6 +151,16 @@ input{
     color:blue;
 }
 
+#main-link-index{
+    color:blue;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    text-align: center;
+}
+
 .register-form{
 
     width: 100%;
