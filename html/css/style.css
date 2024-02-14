@@ -16,14 +16,14 @@ main{
 }
 
 header{
-    background-color: grey;
+    background-color: lightblue;
     margin: 0px;
     padding: 0px;
     border:0px;
 }
 
 footer{
-    background-color:aqua;
+    background-color: red;
 }
 
 .header-left{
@@ -43,8 +43,12 @@ a{
     text-decoration: none;
 }
 
+.header-right:hover{
+    color:darkgray;
+}
+
 a:visited{
-    color:black;
+    color:default;
 }
 
 .nav-svg{
@@ -54,25 +58,25 @@ a:visited{
 }
 
 .footer-svg{
-    padding-top: 12px;
-    margin-left: 10px;
+    /* padding-top: 20px;
+    padding-bottom: 10px; */
     color: black;
+    /* height:100% */
 }
 
 .footer-title{
     text-align: center;
-    /* align-items: center; */
-    /* align-content: center; */
-    /* align-self: center; */
+    display:flex;
+    align-items:center;
+    align-items: center;
+    align-content: center;
+    align-self: center;
 }
 
-/* .nav-title{
-    font-size: 25px;
+.footer-inside{
+    display:inline-block;
+    margin-left: 10px;
 }
-
-.nav-subtitle{
-    font-size: 23px;
-} */
 
 .header-card{
     height:100%;
@@ -87,21 +91,3 @@ a:visited{
 .header-card:hover{
     background-color: greenyellow;
 }
-
-/* .navbar{
-    position: fixed;
-    width:100%;
-    transition: background-color 1s;
-  
-  }
-  
-  .rect{
-    width:100%;
-    height:100vh;
-  }
-  #green{
-    background-color:#559065;
-  }
-  #blue{
-    background-color:#7eb3a7;
-  } */
