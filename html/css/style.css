@@ -29,13 +29,13 @@ footer{
 .header-left{
     float:left;
     margin-left: 10px;
-    color: black;
+    color: #30302e;
 }
 
 .header-right{
     float:right;
     margin-right: 10px;
-    color: black;
+    color: #30302e;
 }
 
 
@@ -43,12 +43,12 @@ a{
     text-decoration: none;
 }
 
-.header-right:hover{
-    color:darkgray;
+a:visited{
+    color:#30302e;
 }
 
-a:visited{
-    color:default;
+a:hover{
+    color:black;
 }
 
 .nav-svg{
@@ -88,6 +88,27 @@ a:visited{
     text-align: center;
 }
 
-.header-card:hover{
-    background-color: greenyellow;
+h1{
+    text-align: center;
+    color:#30302e;
 }
+
+.about-img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+
+}
+.about-content{ 
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    align-content: center;
+    align-self: center;
+    align-items: center;
+    text-align: center;
+}
+
