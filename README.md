@@ -47,3 +47,24 @@ There are many popular forums and message boards these days, but the problem tha
 2. Main post and all comments can be easily viewed
 ![IMG_1277](https://github.com/rencherg/startup/assets/67397048/099598a1-f457-44ce-8e91-90ca0159580e)
 3. Live message Board
+
+## HTML deliverable
+
+For this deliverable the basic HTML DOM was built
+
+- **HTML pages** - HTML pages for login, signup, about, viewing a post, recent comments(websocket), and all recent posts.
+- **Links** - The navbar contains links to login, index, about, signup. The footer contains a link to my github
+- **Images** - Images of Morpheus from the movie the Matrix and a picture of the Federalist papers are included
+- **DB/Login** - The db data is used to show all recent posts, comments
+- **WebSocket** - The websocket data is used to show all recent comments in real time
+
+## CSS deliverable
+
+For this deliverable the application was given a good looking and uniform style
+
+- **Header, footer, and main content body**
+- **Navbar** - All navbar elements were put in a uniform row at the top. Some are floated to the left and others to the right. The links change color when hovered over and do not have underlines. There is a sun icon on the right side that will be used for the weather service call.
+- **Responsive to window resizing** - App looks good down to a width of 400px. This is much less than almost all device types.
+- **Application elements** - Aesthetically pleasing use of white space. The content is not cluttered and is easy to read.
+- **Application text content** - Sans-serif font and consistent colors were used.
+- **Application images** - Images were given a border radius and were centered in the middle of the screen horizontally.
