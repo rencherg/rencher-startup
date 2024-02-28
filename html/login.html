@@ -10,7 +10,7 @@
             <h2 class="header-left nav-title"><a href="index.html">PubForum</a></h2><h2 class="header-left nav-subtitle"><a href="about.html">About</a></h2><img src="https://svgsilh.com/svg/41191.svg" class="header-right nav-svg nav-subtitle dissapearing-bar-item"/><h2 class="header-right nav-subtitle dissapearing-bar-item">USER123</h2><h2 class="header-right nav-subtitle "><a href="login.html">Login</a></h2>
         </header>
         <main>
-            <form>
+            <form id="login-form">
                 <div class="login-form">
                     <h1>Login</h1>
                     <br>
@@ -20,12 +20,12 @@
                     <input type="password" id="password" name="password" value=""><br>
                     <input class="form-button" type="submit" value="Submit">
                 </div>
-              </form> 
-              <p class="form-content">Don't have an account? <a id="main-link" href="register.html">Sign up!</a></p>
-              <br>
-              
-              <img class="form-img"src="https://miro.medium.com/v2/resize:fit:1040/1*QggSrc9qoOMYXwlnneA1Ww.jpeg">
-              <p class="form-content" >Dare to take the red pill</p>
+            </form>
+            <p class="form-content">Don't have an account? <a id="main-link" href="register.html">Sign up!</a></p>
+            <div id="incorrectDiv"></div>
+            
+            <img class="form-img"src="https://miro.medium.com/v2/resize:fit:1040/1*QggSrc9qoOMYXwlnneA1Ww.jpeg">
+            <p class="form-content" >Dare to take the red pill</p>
         </main>
         <footer>
             
@@ -34,6 +34,7 @@
             </div>
         </footer>
         <script src="js/sampledata.js"></script>
+        <script src="js/login.js"></script>
     </body>
     
 </html>
