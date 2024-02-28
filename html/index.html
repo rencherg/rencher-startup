@@ -12,30 +12,13 @@
         </header>
         <main>
             <h1>All Recent Posts</h1>
-            <div class="websocket-content">
+            <div class="websocket-content main-link">
                 <!-- Database Data here -->
                 
                 <a href="post.html">Recent Post 1</a><p>User 1</p>
                 <a href="post.html">Recent Post 2</a><p>User 2</p>
                 <a href="post.html">Recent Post 3</a><p>User 3</p>
-                <p id="test">Hello world JS!</p>
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-
-                        let element = document.getElementById("test");
-                    
-                        function addInput() {
-
-                            let inputBox = document.createElement("input");
-                            inputBox.type = "text";
-                            inputBox.value = "Comment here on the comment oyu clicked"
-                    
-                            element.parentNode.insertBefore(inputBox, element.nextSibling);
-                        }
-                    
-                        element.addEventListener("click", addInput);
-                    });
-                </script>
+                
                 <br>
             </div>
             
@@ -50,12 +33,26 @@
                 document.getElementById("demo").innerHTML = "My First JavaScript";
             </script>
         </footer>
+        <script src="js/sampledata.js"></script>
     </body>
     
 </html>
 
 
-<!-- Fix Header Links
-Update Header and Footer
-Make body of following pages good
-Mobile friendly? -->
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        let element = document.getElementById("test");
+    
+        function addInput() {
+
+            let inputBox = document.createElement("input");
+            inputBox.type = "text";
+            inputBox.value = "Comment here on the comment oyu clicked"
+    
+            element.parentNode.insertBefore(inputBox, element.nextSibling);
+        }
+    
+        element.addEventListener("click", addInput);
+    });
+</script> -->
