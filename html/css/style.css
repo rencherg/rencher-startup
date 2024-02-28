@@ -41,6 +41,7 @@ footer{
 
 a{
     text-decoration: none;
+    color:blue
 }
 
 a:visited{
@@ -251,3 +252,8 @@ span{
         width: 90%;
     }
   }
+
+
+a.main-link{
+    color:blue;
+}
