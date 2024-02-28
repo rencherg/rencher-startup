@@ -8,15 +8,14 @@
     </head>
     <body>
         <header>
-            <!-- <div class="header-left"><h2 class="header-left"><a href="index.html">PubForum.click</a></h2></div><div class="header-right"><h2 class="header-left"><a href="about.html">About</a></h2><h2 class="header-right">Welcome[USER]</h2>3rd party data service data is used in the following h3 tag<h2 class="header-right">Weather SVG</h2><h2 class="header-right"><a href="login.html">Login/Logout</a></h2></div> -->
-            <h2 class="header-left nav-title"><a href="index.html">PubForum</a></h2><h2 class="header-left nav-subtitle"><a href="about.html">About</a></h2><img src="https://svgsilh.com/svg/41191.svg" class="header-right nav-svg nav-subtitle dissapearing-bar-item"/><h2 class="header-right nav-subtitle dissapearing-bar-item">USER123</h2><h2 class="header-right nav-subtitle "><a href="login.html">Login</a></h2>
+            <h2 class="header-left nav-title"><a href="index.html">PubForum</a></h2><h2 class="header-left nav-subtitle"><a href="about.html">About</a></h2><img src="https://svgsilh.com/svg/41191.svg" class="header-right nav-svg nav-subtitle dissapearing-bar-item"/><h2 class="header-right nav-subtitle "><a href="login.html" id="login-logout">Login</a></h2><h2 class="header-right nav-subtitle dissapearing-bar-item" id="username">USER123</h2>
         </header>
         <main>
             <h1>Register</h1>
-            <form>
+            <form id="register-form">
                 <div class="register-form">
                     <label for="username">Username</label><br>
-                    <input type="text" id="username" name="username" value=""><br>
+                    <input type="text" id="username-input" name="username" value=""><br>
                     <label for="zip">Zip Code</label><br>
                     <input type="number" id="zip" name="zip" minlength="5" maxlength="5"><br>
                     <label for="password">Password</label><br>
@@ -26,6 +25,7 @@
                     <input type="submit" class="form-button" value="Submit">
                 </div>
             </form> 
+            <div id="error-message"></div>
         </main>
         <footer>
             
@@ -34,6 +34,8 @@
             </div>
         </footer>
         <script src="js/sampledata.js"></script>
+        <script src="js/loggedIn.js"></script>
+        <script src="js/register.js"></script>
     </body>
     
 </html>
