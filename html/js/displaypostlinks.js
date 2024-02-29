@@ -1,4 +1,5 @@
-let posts = JSON.parse(localStorage.getItem('samplePostData'))
+let postData = localStorage.getItem('samplePostData')
+posts=JSON.parse(postData)
 
 let divParent = document.querySelector('.main-link');
 

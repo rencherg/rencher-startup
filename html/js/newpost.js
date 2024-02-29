@@ -20,13 +20,15 @@ registerForm.addEventListener("submit", (e) => {
     }else{
         postList.push({
             "user":localStorage.getItem("currentUser"),
-            "message":text,
+            "message":text.value,
             "id":postList.length+1,
+            "comment_id":1,
             "comments": []
         })
 
         postData["posts"] = postList
         localStorage.setItem("samplePostData", JSON.stringify(postData))
+        window.location.href = "/html/";
     }
 
     if(errorField.hasChildNodes()){

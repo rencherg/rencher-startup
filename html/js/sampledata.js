@@ -32,23 +32,28 @@ let samplePostData = {
         "user":"rencherg",
         "message":"testYo this is my sample message Dread Pirate Roberts is so cool even though Gemini doesn't think so",
         "id":1,
+        "comment_id":8,
         "comments": [
             {
                 "user":"rencherg",
                 "message":"Dang that's crazy!",
+                "id":4,
                 "subcomments":[
                     {
                         "user":"rencherg",
                         "message":"I guess so I mean he didn't even say what happened",
+                        "id":5,
                         "subcomments":[]
                     },
                     {
                         "user":"rencherg",
                         "message":"Everyone has a story",
+                        "id":6,
                         "subcomments":[
                             {
                                 "user":"rencherg",
                                 "message":"The indent means that this comment is replying to the one above it",
+                                "id":7,
                                 "subcomments":[]
                             }
                         ]
@@ -58,11 +63,13 @@ let samplePostData = {
             {
                 "user":"rencherg",
                 "message":"It's a busy world huh",
+                "id":2,
                 "subcomments":[]
             },
             {
                 "user":"rencherg",
                 "message":"This is another comment",
+                "id":3,
                 "subcomments":[]
             }
         ]
@@ -75,19 +82,23 @@ let samplePostData = {
             {
                 "user":"rencherg",
                 "message":"Dang that's crazy!",
+                "id":4,
                 "subcomments":[
                     {
                         "user":"rencherg",
                         "message":"I guess so I mean he didn't even say what happened",
+                        "id":5,
                         "subcomments":[]
                     },
                     {
                         "user":"rencherg",
                         "message":"Everyone has a story",
+                        "id":6,
                         "subcomments":[
                             {
                                 "user":"rencherg",
                                 "message":"The indent means that this comment is replying to the one above it",
+                                "id":7,
                                 "subcomments":[]
                             }
                         ]
@@ -97,11 +108,13 @@ let samplePostData = {
             {
                 "user":"rencherg",
                 "message":"It's a busy world huh",
+                "id":2,
                 "subcomments":[]
             },
             {
                 "user":"rencherg",
                 "message":"This is another comment",
+                "id":3,
                 "subcomments":[]
             }
         ]

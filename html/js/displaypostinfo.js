@@ -6,6 +6,7 @@ console.log(id)
 let posts = JSON.parse(localStorage.getItem('samplePostData'))
 let title = document.getElementById('title');
 let postContent = document.getElementById('post-content');
+let commentDiv = document.getElementById('loaded-comments');
 
 foundPost = null;
 // debugger;
@@ -20,13 +21,10 @@ posts["posts"].forEach(post => {
 if(foundPost){
     title.textContent = foundPost['user'] + ' Wrote:'
     postContent.textContent = foundPost['message']
+    subcomments = foundPost['comments']
 
-    let IDIdentifier = 0;
-
-    foundPost.forEach(comment => {
-
-
-
+    subcomments.forEach(subcomment => {
+        insertComments(subcomment, 1, commentDiv)
     });
 
 }else{
@@ -34,10 +32,40 @@ if(foundPost){
     postContent.textContent = ''
 }
 
-// function fillInSubcomments(comment, ){
+function insertComments(parentComment, depth, parentContainer) {
 
-// }
+    let html = htmlBuilder(parentComment["message"], depth)
 
-// function getNewID(){
-    
-// }
+    parentContainer.insertAdjacentHTML('beforeend', html);
+
+    if(parentComment["subcomments"].length > 0){
+        parentComment["subcomments"].forEach(comment => {
+            insertComments(comment, depth+1, parentContainer)
+        });
+    }
+}
+
+function htmlBuilder(commentText, depth){
+    html=''
+
+    if(depth === 1){
+        html = '<p>'+commentText+'</p>'
+    }else{
+        html = '<p>'
+        for(let i = 0; i < depth-1; i++){
+            html += '<span>'
+        }
+        html+=commentText
+        for(let i = 0; i < depth-1; i++){
+            html += '</span>'
+        }
+        html == '</p>'
+    }
+
+    return html
+}
+
+// Displaying posts:
+// For each comment:
+// Display
+// display children
