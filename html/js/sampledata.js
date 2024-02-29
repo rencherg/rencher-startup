@@ -17,6 +17,12 @@ let sampleUsers = {
         "password":"password",
         "zipcode":20535,
         "lat/long":"<latlong here>"
+    },
+    {
+        "username":"test",
+        "password":"test",
+        "zipcode":98765,
+        "lat/long":"<latlong here>"
     }
 ]}
 
