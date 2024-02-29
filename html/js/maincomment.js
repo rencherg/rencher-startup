@@ -13,28 +13,61 @@ let loginForm = document.getElementById("main-comment");
 let storageContents = JSON.parse(localStorage.getItem('samplePostData'))
 let samplePosts = storageContents["posts"]
 
-console.log(posts)
-
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    debugger
+    let comment = document.getElementById("comment-input");
 
-    alert('good')
-    errorMessage=''
+    let errorMessage=''
 
-    
-
-    let incorrectItem = document.getElementById("incorrectDiv");
-
-    if(!incorrectItem.hasChildNodes()){
-        let pTag = document.createElement("p");
-        pTag.className = "form-content"
-        pTag.textContent = "Incorrect Username/Password"
-        incorrectItem.appendChild(pTag);
+    if(comment.value === ''){
+        errorMessage= 'Comment must not be blank'
+    }else{
+        processComment(storageContents, comment.value)
     }
+
+    let errorDiv = document.getElementById("error-message");
+
+    if(errorDiv.hasChildNodes()){
+        errorDiv.removeChild(errorDiv.firstChild);
+    }
+
+    let pTag = document.createElement("p");
+    pTag.className = "form-content"
+    pTag.textContent = errorMessage
+    errorDiv.appendChild(pTag);
     
-    username.value = '';
-    password.value = '';
+    comment.value = '';
     
     });
+
+function processComment(postData, commentText){
+
+    console.log(commentText)
+    let currentPostID = localStorage.getItem("currentPost")
+    let parentID = localStorage.getItem("currentComment")
+
+    console.log(postData["posts"])
+    let desiredPost = ''
+    let desiredParent = ''
+
+    //find correct post
+    postData["posts"].forEach(function(post) {
+
+        console.log(post["id"])
+        console.log(currentPostID)
+
+        if(post["id"].toString()===currentPostID.toString()){
+            desiredPost = post
+        }
+    });
+
+    console.log(desiredPost)
+
+    
+
+    //find new id
+    //increment new id
+    //find comment parent
+    //create child
+}
