@@ -19,8 +19,10 @@ posts["posts"].forEach(post => {
 });
 
 if(foundPost){
+    localStorage.setItem('currentPost', foundPost["id"])
     title.textContent = foundPost['user'] + ' Wrote:'
     postContent.textContent = foundPost['message']
+    postContent.className = 'post-content loaded-comment'
     subcomments = foundPost['comments']
 
     subcomments.forEach(subcomment => {
@@ -34,7 +36,7 @@ if(foundPost){
 
 function insertComments(parentComment, depth, parentContainer) {
 
-    let html = htmlBuilder(parentComment["message"], depth)
+    let html = htmlBuilder(parentComment["message"], depth, parentComment["id"])
 
     parentContainer.insertAdjacentHTML('beforeend', html);
 
@@ -45,13 +47,13 @@ function insertComments(parentComment, depth, parentContainer) {
     }
 }
 
-function htmlBuilder(commentText, depth){
+function htmlBuilder(commentText, depth, id){
     html=''
 
     if(depth === 1){
-        html = '<p>'+commentText+'</p>'
+        html = '<p class=\"loaded-comment\" id=\"' + id + '\">'+commentText+'</p>'
     }else{
-        html = '<p>'
+        html = '<p class=\"loaded-comment\" id=\"' + id + '\">'
         for(let i = 0; i < depth-1; i++){
             html += '<span>'
         }
@@ -64,8 +66,3 @@ function htmlBuilder(commentText, depth){
 
     return html
 }
-
-// Displaying posts:
-// For each comment:
-// Display
-// display children

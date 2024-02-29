@@ -71,6 +71,12 @@ let samplePostData = {
                 "message":"This is another comment",
                 "id":3,
                 "subcomments":[]
+            },
+            {
+                "user":"rencherg",
+                "message":"Dude have you ever seen Shrek in Spanish?!",
+                "id":1,
+                "subcomments":[]
             }
         ]
     },
@@ -78,6 +84,7 @@ let samplePostData = {
         "user":"fmulder",
         "message":"Woah dude I don't know what you saw. Maybe it was Desert Storm 2.",
         "id":2,
+        "comment_id":8,
         "comments": [
             {
                 "user":"rencherg",
@@ -115,6 +122,12 @@ let samplePostData = {
                 "user":"rencherg",
                 "message":"This is another comment",
                 "id":3,
+                "subcomments":[]
+            },
+            {
+                "user":"rencherg",
+                "message":"Dude have you ever seen Shrek in Spanish?!",
+                "id":1,
                 "subcomments":[]
             }
         ]
