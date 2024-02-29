@@ -103,8 +103,15 @@ let samplePostData = {
 ],
 }
 
+let sampleWebsocketData = {
+    "data":[
+        "comment", "comment2", "more sample comments", "another", "ok", "Dude have you ever watched Shrek in Spanish?"
+    ]
+}
+
 if (!localStorage.getItem("dataLoaded")){
     localStorage.setItem("samplePostData", JSON.stringify(samplePostData));
     localStorage.setItem("sampleUsers", JSON.stringify(sampleUsers));
-    localStorage.setItem("dataLoaded", true);   
+    localStorage.setItem("dataLoaded", true);
+    localStorage.setItem("sampleWebsocketData", JSON.stringify(sampleWebsocketData));
 }
