@@ -1,5 +1,6 @@
 let commentLabel = document.getElementById("comment-label")
 let classMembers = document.querySelectorAll('.loaded-comment');
+localStorage.setItem('currentComment', 'post-content')
 classMembers.forEach(function(member) {
     member.addEventListener('click', function() {
 
@@ -23,6 +24,12 @@ loginForm.addEventListener("submit", (e) => {
     if(comment.value === ''){
         errorMessage= 'Comment must not be blank'
     }else{
+
+        //Update websocket with new comment
+        websocketData = JSON.parse(localStorage.getItem('sampleWebsocketData'));
+        websocketData['data'].push(comment.value)
+        localStorage.setItem('sampleWebsocketData', JSON.stringify(websocketData))
+
         newPostData = processComment(storageContents, comment.value)
         localStorage.setItem('samplePostData', JSON.stringify(newPostData))
         location.reload()

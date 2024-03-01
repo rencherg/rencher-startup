@@ -30,7 +30,7 @@ let samplePostData = {
     "posts":[
     {
         "user":"rencherg",
-        "message":"testYo this is my sample message Dread Pirate Roberts is so cool even though Gemini doesn't think so",
+        "message":"This is my sample post, click on me or any comment to make a comment",
         "id":1,
         "comment_id":13,
         "comments": [
@@ -58,28 +58,28 @@ let samplePostData = {
                             },
                             {
                                 "user":"rencherg",
-                                "message":"Dread Pirate Roberts is cool",
+                                "message":"Another comment",
                                 "id":8,
                                 "subcomments":[]
                             },
                             {
                                 "user":"rencherg",
-                                "message":"I want to believe",
+                                "message":"Another comment",
                                 "id":9,
                                 "subcomments":[
                                     {
                                         "user":"rencherg",
-                                        "message":"I want to believe",
+                                        "message":"Another comment",
                                         "id":10,
                                         "subcomments":[
                                             {
                                                 "user":"rencherg",
-                                                "message":"I want to believe",
+                                                "message":"Another comment",
                                                 "id":11,
                                                 "subcomments":[
                                                     {
                                                         "user":"rencherg",
-                                                        "message":"I want to believe",
+                                                        "message":"Another comment",
                                                         "id":12,
                                                         "subcomments":[]
                                                     }
@@ -107,7 +107,7 @@ let samplePostData = {
             },
             {
                 "user":"rencherg",
-                "message":"Dude have you ever seen Shrek in Spanish?!",
+                "message":"Another comment",
                 "id":1,
                 "subcomments":[]
             }
@@ -131,7 +131,7 @@ let samplePostData = {
 
 let sampleWebsocketData = {
     "data":[
-        "comment", "comment2", "more sample comments", "another", "ok", "Dude have you ever watched Shrek in Spanish?"
+        "comment", "comment2", "more sample comments", "another", "ok", "Another sample comment"
     ]
 }
 
