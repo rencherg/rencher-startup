@@ -32,7 +32,7 @@ let samplePostData = {
         "user":"rencherg",
         "message":"testYo this is my sample message Dread Pirate Roberts is so cool even though Gemini doesn't think so",
         "id":1,
-        "comment_id":8,
+        "comment_id":13,
         "comments": [
             {
                 "user":"rencherg",
@@ -55,6 +55,39 @@ let samplePostData = {
                                 "message":"The indent means that this comment is replying to the one above it",
                                 "id":7,
                                 "subcomments":[]
+                            },
+                            {
+                                "user":"rencherg",
+                                "message":"Dread Pirate Roberts is cool",
+                                "id":8,
+                                "subcomments":[]
+                            },
+                            {
+                                "user":"rencherg",
+                                "message":"I want to believe",
+                                "id":9,
+                                "subcomments":[
+                                    {
+                                        "user":"rencherg",
+                                        "message":"I want to believe",
+                                        "id":10,
+                                        "subcomments":[
+                                            {
+                                                "user":"rencherg",
+                                                "message":"I want to believe",
+                                                "id":11,
+                                                "subcomments":[
+                                                    {
+                                                        "user":"rencherg",
+                                                        "message":"I want to believe",
+                                                        "id":12,
+                                                        "subcomments":[]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     }

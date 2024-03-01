@@ -20,7 +20,7 @@ posts["posts"].forEach(post => {
 
 if(foundPost){
     localStorage.setItem('currentPost', foundPost["id"])
-    title.textContent = foundPost['user'] + ' Wrote:'
+    title.textContent = foundPost['user'] + ' wrote:'
     postContent.textContent = foundPost['message']
     postContent.className = 'post-content loaded-comment'
     subcomments = foundPost['comments']

@@ -3,7 +3,7 @@ let classMembers = document.querySelectorAll('.loaded-comment');
 classMembers.forEach(function(member) {
     member.addEventListener('click', function() {
 
-        localStorage.setItem('currentComment', 'main')
+        localStorage.setItem('currentComment', member.id)
         commentLabel.textContent = member.textContent.substring(0,40);
         
     });
@@ -23,7 +23,8 @@ loginForm.addEventListener("submit", (e) => {
     if(comment.value === ''){
         errorMessage= 'Comment must not be blank'
     }else{
-        processComment(storageContents, comment.value)
+        newPostData = processComment(storageContents, comment.value)
+        localStorage.setItem('samplePostData', JSON.stringify(newPostData))
     }
 
     let errorDiv = document.getElementById("error-message");
@@ -37,37 +38,77 @@ loginForm.addEventListener("submit", (e) => {
     pTag.textContent = errorMessage
     errorDiv.appendChild(pTag);
     
-    comment.value = '';
+    // comment.value = '';
     
-    });
+});
 
 function processComment(postData, commentText){
-
-    console.log(commentText)
     let currentPostID = localStorage.getItem("currentPost")
     let parentID = localStorage.getItem("currentComment")
 
-    console.log(postData["posts"])
     let desiredPost = ''
-    let desiredParent = ''
+    let postIndex
 
     //find correct post
-    postData["posts"].forEach(function(post) {
+    // postData["posts"].forEach(function(post) {
+    for(let i = 0; i < postData["posts"].length; i++){
+        if(postData["posts"][i]["id"].toString()===currentPostID.toString()){
 
-        console.log(post["id"])
-        console.log(currentPostID)
-
-        if(post["id"].toString()===currentPostID.toString()){
-            desiredPost = post
+            desiredPost = postData["posts"][i]
+            postIndex = i
         }
-    });
+    }
 
-    console.log(desiredPost)
+    //If we are replying to the main post
+    if(parentID === 'post-content'){
+                
+        postData["posts"][postIndex]['comments'].push({
+            "user":desiredPost['user'],
+            "message":commentText,
+            "id":desiredPost['comment_id'],
+            "subcomments":[]
+        })
 
-    
+        postData['posts'][postIndex]['comment_id'] = postData['posts'][postIndex]['comment_id']+1
 
-    //find new id
-    //increment new id
-    //find comment parent
-    //create child
+        return postData
+
+    }
+
+    //Update desired parent comment tree
+    for(let i = 0; i < desiredPost['comments'].length; i++){
+        let updatedPost = addComment(desiredPost['comments'][i], parentID, desiredPost['comment_id'], desiredPost['user'], commentText)
+        if(updatedPost!== null){
+
+            desiredPost['comments'][i] = updatedPost
+            postData['posts'][postIndex]['comment_id'] = postData['posts'][postIndex]['comment_id']+1
+            postData['posts'][postIndex] = desiredPost
+
+        }
+    }
+
+    return postData
+}
+
+function addComment(comment, parentID, newID, user, newMessage){
+    if(comment['id'].toString() === parentID){
+        comment['subcomments'].push({
+            "user":user,
+            "message":newMessage,
+            "id":newID,
+            "subcomments":[]
+        })
+        return comment
+    }else if(comment['subcomments'].length > 0){
+        for(let i = 0; i < comment['subcomments'].length; i++){
+            let result = addComment(comment['subcomments'][i], parentID, newID, user, newMessage)
+            if(result !== null){
+                comment['subcomments'][i] = result
+                return comment
+            }
+        }
+        return null
+    }else{
+        return null
+    }
 }
