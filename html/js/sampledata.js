@@ -114,59 +114,20 @@ let samplePostData = {
         ]
     },
     {
-        "user":"fmulder",
-        "message":"Woah dude I don't know what you saw. Maybe it was Desert Storm 2.",
+        "user":"test",
+        "message":"Test data Test data Test data Test data Test data Test data",
         "id":2,
-        "comment_id":8,
+        "comment_id":2,
         "comments": [
             {
                 "user":"rencherg",
-                "message":"Dang that's crazy!",
-                "id":4,
-                "subcomments":[
-                    {
-                        "user":"rencherg",
-                        "message":"I guess so I mean he didn't even say what happened",
-                        "id":5,
-                        "subcomments":[]
-                    },
-                    {
-                        "user":"rencherg",
-                        "message":"Everyone has a story",
-                        "id":6,
-                        "subcomments":[
-                            {
-                                "user":"rencherg",
-                                "message":"The indent means that this comment is replying to the one above it",
-                                "id":7,
-                                "subcomments":[]
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "user":"rencherg",
-                "message":"It's a busy world huh",
-                "id":2,
-                "subcomments":[]
-            },
-            {
-                "user":"rencherg",
-                "message":"This is another comment",
-                "id":3,
-                "subcomments":[]
-            },
-            {
-                "user":"rencherg",
-                "message":"Dude have you ever seen Shrek in Spanish?!",
+                "message":"Test data",
                 "id":1,
                 "subcomments":[]
             }
-        ]
+        ],
     }
-],
-}
+]}
 
 let sampleWebsocketData = {
     "data":[

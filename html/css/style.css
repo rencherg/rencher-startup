@@ -291,3 +291,8 @@ span{
 a.main-link{
     color:blue;
 }
+
+.comment-label{
+    padding:20px;
+    margin:20px;
+}

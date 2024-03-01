@@ -4,7 +4,7 @@ classMembers.forEach(function(member) {
     member.addEventListener('click', function() {
 
         localStorage.setItem('currentComment', member.id)
-        commentLabel.textContent = member.textContent.substring(0,40);
+        commentLabel.textContent = 'Commenting on: '+member.textContent.substring(0,40);
         
     });
 });
@@ -25,6 +25,7 @@ loginForm.addEventListener("submit", (e) => {
     }else{
         newPostData = processComment(storageContents, comment.value)
         localStorage.setItem('samplePostData', JSON.stringify(newPostData))
+        location.reload()
     }
 
     let errorDiv = document.getElementById("error-message");
@@ -37,8 +38,6 @@ loginForm.addEventListener("submit", (e) => {
     pTag.className = "form-content"
     pTag.textContent = errorMessage
     errorDiv.appendChild(pTag);
-    
-    // comment.value = '';
     
 });
 
