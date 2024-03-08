@@ -47,6 +47,31 @@ app.get('/data', (req, res, next) => {
     res.send(data);
 });
 
+app.post('/login', (req, res, next) => {
+    res.send({"message": "ok"});
+});
+
+app.post('/logout', (req, res, next) => {
+    res.send({"message": "ok"});
+});
+
+//This will be changed but right now it only adds a user to the database
+app.post('/register', (req, res, next) => {
+    res.send({"message": "ok"});
+});
+
+app.post('/post', (req, res, next) => {
+    res.send({"message": "ok"});
+});
+
+app.put('/comment', (req, res, next) => {
+    res.send({"message": "ok"});
+});
+
+app.post('/register', (req, res, next) => {
+    res.send({"message": "ok"});
+});
+
 app.use(function (err, req, res, next) {
   res.status(500).send({type: err.name, message: err.message});
 });
