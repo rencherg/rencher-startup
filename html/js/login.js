@@ -13,7 +13,7 @@ loginForm.addEventListener("submit", (e) => {
         if (username.value === user["username"] && password.value === user["password"]) {
             localStorage.setItem("loggedIn", true)
             localStorage.setItem("currentUser", username.value)
-            window.location.href = "/html/";
+            window.location.href = "/";
         }
     });
 

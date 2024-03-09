@@ -42,7 +42,7 @@ registerForm.addEventListener("submit", (e) => {
         localStorage.setItem("sampleUsers", JSON.stringify(sampleUsers))
         localStorage.setItem("loggedIn", true)
         localStorage.setItem("currentUser", username.value)
-        window.location.href = "/html/";
+        window.location.href = "/";
     }
 
     let incorrectItem = document.getElementById("error-message");

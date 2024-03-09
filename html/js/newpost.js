@@ -28,7 +28,7 @@ registerForm.addEventListener("submit", (e) => {
 
         postData["posts"] = postList
         localStorage.setItem("samplePostData", JSON.stringify(postData))
-        window.location.href = "/html/";
+        window.location.href = "/";
     }
 
     if(errorField.hasChildNodes()){
