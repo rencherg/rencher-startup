@@ -2,7 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
 
-const data = require('./dao.js');
+const {data, processComment, addToUsers, addPost, addToWebsocket} = require('./dao.js');
 
 //Not until next project
 
@@ -57,6 +57,7 @@ app.post('/logout', (req, res, next) => {
 
 //This will be changed but right now it only adds a user to the database
 app.post('/register', (req, res, next) => {
+    console.log(req)
     res.send({"message": "ok"});
 });
 
@@ -65,10 +66,6 @@ app.post('/post', (req, res, next) => {
 });
 
 app.put('/comment', (req, res, next) => {
-    res.send({"message": "ok"});
-});
-
-app.post('/register', (req, res, next) => {
     res.send({"message": "ok"});
 });
 
