@@ -55,10 +55,16 @@ app.post('/logout', (req, res, next) => {
     res.send({"message": "ok"});
 });
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
 //This will be changed but right now it only adds a user to the database
-app.post('/register', (req, res, next) => {
-    console.log(req)
-    res.send({"message": "ok"});
+app.post('/register', (req, res) => {
+  console.log('Received body data:', req.body);
+
+  // Send a response
+  res.send('Data received successfully.');
+
+  // res.send({"message": "ok"});
 });
 
 app.post('/post', (req, res, next) => {
