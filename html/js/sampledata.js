@@ -140,4 +140,18 @@ if (!localStorage.getItem("dataLoaded")){
     localStorage.setItem("sampleUsers", JSON.stringify(sampleUsers));
     localStorage.setItem("dataLoaded", true);
     localStorage.setItem("sampleWebsocketData", JSON.stringify(sampleWebsocketData));
+    // Make the POST request
+    fetch('your_endpoint_here', {
+        method: 'GET',
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // Handle success response here
+    })
+    .catch(error => {
+        // Handle error here
+        console.error('There was a problem with your fetch operation:', error);
+    });
 }

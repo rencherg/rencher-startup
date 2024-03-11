@@ -62,9 +62,11 @@ app.post('/register', (req, res) => {
   console.log('Received body data:', req.body);
 
   // Send a response
-  res.send('Data received successfully.');
+  // res.send('Data received successfully.');
 
-  // res.send({"message": "ok"});
+  addToUsers(req.body)
+
+  res.send({"message": "Data received successfully."});
 });
 
 app.post('/post', (req, res, next) => {

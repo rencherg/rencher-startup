@@ -219,5 +219,10 @@ function addComment(comment, parentID, newID, user, newMessage){
     }
 }
 
-let data = {"data": [sampleUsers, samplePostData, sampleWebsocketData]}
+let data = 
+        {
+            "sampleUsers": sampleUsers,
+            "samplePostData": samplePostData,
+            "sampleWebsocketData": sampleWebsocketData
+        }
 module.exports = {data, processComment, addToUsers, addPost, addToWebsocket}
