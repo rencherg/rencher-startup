@@ -136,19 +136,26 @@ let sampleWebsocketData = {
 }
 
 if (!localStorage.getItem("dataLoaded")){
-    localStorage.setItem("samplePostData", JSON.stringify(samplePostData));
-    localStorage.setItem("sampleUsers", JSON.stringify(sampleUsers));
-    localStorage.setItem("dataLoaded", true);
-    localStorage.setItem("sampleWebsocketData", JSON.stringify(sampleWebsocketData));
+    // localStorage.setItem("samplePostData2", JSON.stringify(samplePostData));
+    // localStorage.setItem("sampleUsers", JSON.stringify(sampleUsers));
+    // localStorage.setItem("dataLoaded", true);
+    // localStorage.setItem("sampleWebsocketData", JSON.stringify(sampleWebsocketData));
     // Make the POST request
-    fetch('your_endpoint_here', {
+    fetch('/data', {
         method: 'GET',
     })
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        // Handle success response here
+
+        return response.json()
+    }).then(responseData => {
+        localStorage.setItem("samplePostData", JSON.stringify(responseData.samplePostData));
+        localStorage.setItem("sampleUsers", JSON.stringify(responseData.sampleUsers));
+        localStorage.setItem("dataLoaded", true);
+        localStorage.setItem("sampleWebsocketData", JSON.stringify(responseData.sampleWebsocketData));
+
     })
     .catch(error => {
         // Handle error here

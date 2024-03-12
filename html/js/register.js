@@ -50,7 +50,7 @@ registerForm.addEventListener("submit", (e) => {
         // localStorage.setItem("sampleUsers", JSON.stringify(sampleUsers))
 
         // Make the POST request
-        fetch('localhost:8080/register', {
+        fetch('/newuser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,11 +69,11 @@ registerForm.addEventListener("submit", (e) => {
             console.error('There was a problem with your fetch operation:', error);
         });
 
-        console.log()
         sampleUsers.userlist = users
         localStorage.removeItem("sampleUsers")
         localStorage.setItem("loggedIn", true)
         localStorage.setItem("currentUser", username.value)
+        localStorage.removeItem("dataLoaded")
         window.location.href = "/";
     }
 

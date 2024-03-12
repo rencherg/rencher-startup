@@ -58,12 +58,13 @@ app.post('/logout', (req, res, next) => {
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 //This will be changed but right now it only adds a user to the database
-app.post('/register', (req, res) => {
-  console.log('Received body data:', req.body);
+app.post('/newuser', (req, res) => {
+  // console.log('Received body data:', req.body);
 
   // Send a response
   // res.send('Data received successfully.');
 
+  // console.log(req.body)
   addToUsers(req.body)
 
   res.send({"message": "Data received successfully."});
