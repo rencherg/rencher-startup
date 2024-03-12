@@ -5,7 +5,6 @@ let users = storageContents.userlist
 
 registerForm.addEventListener("submit", (e) => {
 
-    console.log('here')
     e.preventDefault();
   
     let username = document.getElementById('username-input');
@@ -37,24 +36,11 @@ registerForm.addEventListener("submit", (e) => {
                     "zipcode":zip.value,
                     "lat/long":"<latlong here>"
                 }
-        // users.push(
-        //     {
-        //         "username":username.value,
-        //         "password":password.value,
-        //         "zipcode":zip.value,
-        //         "lat/long":"<latlong here>"
-        //     }
-        // )
-        // sampleUsers.userlist = users
-        // localStorage.removeItem("sampleUsers")
-        // localStorage.setItem("sampleUsers", JSON.stringify(sampleUsers))
 
-        // Make the POST request
-        fetch('/newuser', {
+        fetch('/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // Add any other headers you need, like authentication tokens
             },
             body: JSON.stringify(data)
         })
@@ -62,18 +48,15 @@ registerForm.addEventListener("submit", (e) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            // Handle success response here
         })
         .catch(error => {
-            // Handle error here
             console.error('There was a problem with your fetch operation:', error);
         });
 
-        sampleUsers.userlist = users
-        localStorage.removeItem("sampleUsers")
+        localStorage.removeItem("loggedIn")
+        localStorage.removeItem("dataLoaded")
         localStorage.setItem("loggedIn", true)
         localStorage.setItem("currentUser", username.value)
-        localStorage.removeItem("dataLoaded")
         window.location.href = "/";
     }
 

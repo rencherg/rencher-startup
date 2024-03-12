@@ -18,17 +18,45 @@ registerForm.addEventListener("submit", (e) => {
     }else if(text.value === ''){
         errorMessage = 'Your post cannot be empty.'
     }else{
-        postList.push({
+
+        let data={
             "user":localStorage.getItem("currentUser"),
             "message":text.value,
             "id":postList.length+1,
             "comment_id":1,
             "comments": []
-        })
+        }
 
-        postData["posts"] = postList
-        localStorage.setItem("samplePostData", JSON.stringify(postData))
-        window.location.href = "/";
+        // postList.push({
+        //     "user":localStorage.getItem("currentUser"),
+        //     "message":text.value,
+        //     "id":postList.length+1,
+        //     "comment_id":1,
+        //     "comments": []
+        // })
+
+        fetch('/post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+        })
+        .catch(error => {
+            console.error('There was a problem with your fetch operation:', error);
+        });
+
+        // postData["posts"] = postList
+        localStorage.removeItem("samplePostData", JSON.stringify(postData))
+        localStorage.removeItem("dataLoaded", JSON.stringify(postData))
+        window.location.href = "/post.html?id=" + data["id"];
+
     }
 
     if(errorField.hasChildNodes()){

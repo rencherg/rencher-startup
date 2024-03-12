@@ -42,40 +42,38 @@ app.get('/error', (req, res, next) => {
   throw new Error('Error: Resource not found');
 });
 
-//getting db data
+//getting backend data
 app.get('/data', (req, res, next) => {
-    res.send(data);
+  res.send(data);
 });
 
-app.post('/login', (req, res, next) => {
-    res.send({"message": "ok"});
-});
+//These two will be implemented later
+// app.post('/login', (req, res, next) => {
+//   res.send({"message": "ok"});
+// });
 
-app.post('/logout', (req, res, next) => {
-    res.send({"message": "ok"});
-});
+// app.post('/logout', (req, res, next) => {
+//   res.send({"message": "ok"});
+// });
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 //This will be changed but right now it only adds a user to the database
-app.post('/newuser', (req, res) => {
-  // console.log('Received body data:', req.body);
+app.post('/register', (req, res) => {
 
-  // Send a response
-  // res.send('Data received successfully.');
-
-  // console.log(req.body)
   addToUsers(req.body)
 
   res.send({"message": "Data received successfully."});
 });
 
 app.post('/post', (req, res, next) => {
-    res.send({"message": "ok"});
+  addPost(req.body)
+
+  res.send({"message": "Data received successfully."});
 });
 
 app.put('/comment', (req, res, next) => {
-    res.send({"message": "ok"});
+  res.send({"message": "ok"});
 });
 
 app.use(function (err, req, res, next) {
@@ -83,7 +81,7 @@ app.use(function (err, req, res, next) {
 });
 
 // Listening to a network port
-const port = 8080;
+const port = 8000;
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
