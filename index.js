@@ -42,7 +42,14 @@ app.post('/post', (req, res, next) => {
   res.send({"message": "Data received successfully."});
 });
 
-app.put('/comment', (req, res, next) => {
+app.put('/comment', (req, res) => {
+
+  req.body.postData
+
+  console.log('hello')
+  processComment(req.body.postData, req.body.commentText, req.body.currentPostID, req.body.parentID)
+  addToWebsocket(req.body.commentText)
+
   res.send({"message": "ok"});
 });
 

@@ -148,18 +148,17 @@ function addPost(obj){
 }
 
 function processComment(postData, commentText, currentPostID, parentID){
-    // let currentPostID = localStorage.getItem("currentPost")
-    // let parentID = localStorage.getItem("currentComment")
+
+    console.log('hello again')
 
     let desiredPost = ''
     let postIndex
 
     //find correct post
-    // postData["posts"].forEach(function(post) {
-    for(let i = 0; i < postData["posts"].length; i++){
-        if(postData["posts"][i]["id"].toString()===currentPostID.toString()){
+    for(let i = 0; i < samplePostData["posts"].length; i++){
+        if(samplePostData["posts"][i]["id"].toString()===currentPostID.toString()){
 
-            desiredPost = postData["posts"][i]
+            desiredPost = samplePostData["posts"][i]
             postIndex = i
         }
     }
@@ -167,16 +166,19 @@ function processComment(postData, commentText, currentPostID, parentID){
     //If we are replying to the main post
     if(parentID === 'post-content'){
                 
-        postData["posts"][postIndex]['comments'].push({
+        console.log('another hello')
+
+        samplePostData["posts"][postIndex]['comments'].push({
             "user":desiredPost['user'],
             "message":commentText,
             "id":desiredPost['comment_id'],
             "subcomments":[]
         })
 
-        postData['posts'][postIndex]['comment_id'] = postData['posts'][postIndex]['comment_id']+1
+        samplePostData['posts'][postIndex]['comment_id'] = samplePostData['posts'][postIndex]['comment_id']+1
 
-        return postData
+        console.log(samplePostData)
+        console.log(samplePostData.posts[1].comments)
 
     }
 
@@ -186,12 +188,14 @@ function processComment(postData, commentText, currentPostID, parentID){
         if(updatedPost!== null){
 
             desiredPost['comments'][i] = updatedPost
-            postData['posts'][postIndex]['comment_id'] = postData['posts'][postIndex]['comment_id']+1
-            postData['posts'][postIndex] = desiredPost
+            samplePostData['posts'][postIndex]['comment_id'] = samplePostData['posts'][postIndex]['comment_id']+1
+            samplePostData['posts'][postIndex] = desiredPost
 
         }
     }
 
+    console.log(samplePostData)
+    console.log(samplePostData.posts[1].comments)
     return postData
 }
 

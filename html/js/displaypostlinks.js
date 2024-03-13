@@ -29,8 +29,6 @@ async function loadData() {
         
             }).then(posts =>{
                 posts["posts"].forEach(post => {
-
-                    // console.log('here')
             
                     let aTag = document.createElement("a");
                     aTag.textContent = post["message"];
@@ -43,7 +41,6 @@ async function loadData() {
                 });
             })
             .catch(error => {
-                // Handle error here
                 console.error('There was a problem with your fetch operation:', error);
             });
         }else{

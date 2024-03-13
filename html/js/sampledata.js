@@ -136,11 +136,6 @@ let sampleWebsocketData = {
 }
 
 if (!localStorage.getItem("dataLoaded")){
-    // localStorage.setItem("samplePostData2", JSON.stringify(samplePostData));
-    // localStorage.setItem("sampleUsers", JSON.stringify(sampleUsers));
-    // localStorage.setItem("dataLoaded", true);
-    // localStorage.setItem("sampleWebsocketData", JSON.stringify(sampleWebsocketData));
-    // Make the POST request
     fetch('/data', {
         method: 'GET',
     })
@@ -158,7 +153,6 @@ if (!localStorage.getItem("dataLoaded")){
 
     })
     .catch(error => {
-        // Handle error here
         console.error('There was a problem with your fetch operation:', error);
     });
 }
