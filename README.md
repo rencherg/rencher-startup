@@ -69,7 +69,7 @@ For this deliverable the application was given a good looking and uniform style
 - **Application text content** - Sans-serif font and consistent colors were used.
 - **Application images** - Images were given a border radius and were centered in the middle of the screen horizontally.
 
-##JS Deliverable
+## JS Deliverable
 
 - **User Input** - Users are allowed to post and comment on any other post in an easy to view way. The data is saved in localstorage
 - **Login** - Javascript is used to login, signup, logout, and display the username when logged in
@@ -77,11 +77,24 @@ For this deliverable the application was given a good looking and uniform style
 - **localstorage** - localstorage API is used to keep track of user data, session data, and post data
 - **Websocket** - Websocket data is mocked using javascript
 
+## Web Services Deliverable
+
+- **User Input** - Users are allowed to post and comment on any other post in an easy to view way. The data is saved in localstorage and is stored and retrieved using the backend endpoints
+- **Login** - Javascript is used to login, signup, logout, and display the username when logged in
+- **DB** - Mock database data is used to register, login and view posts. The mock data comes from the backend and a dao file has already been created
+- **Websocket** - Websocket data is mocked using javascript and is stored in the backend
+- **HTTP Service** - A functional node.js express service was created
+- **Middleware** - Frontend resources are served using static middleware
+- **3rd Part Service** - Third party endpoint is used to display the temperature at the user's current location
+- **Endpoints** - Backend provides service endpoints and frontend calls them
+
 To login go to the login page and use the following information for testing
 
 username: test
 password: test
 
-Or you can create your own temporary account.
+Or you can create your own temporary account at the register page
+
+If you register for a new account make sure to put in a valid zip code so that the temperature at your location can be shown
 
 When you view a post go into the post and click on any comment or the post itself and then make your comment. You need to be logged in to post but not to comment.
