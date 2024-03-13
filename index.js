@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 
 const {data, processComment, addToUsers, addPost, addToWebsocket} = require('./dao.js');
+const getWeather = require('./weather.js')
 
 //Not until next project
 
@@ -76,12 +77,32 @@ app.put('/comment', (req, res, next) => {
   res.send({"message": "ok"});
 });
 
+app.get('/weather/:zip', async (req, res) => {
+
+  const { zip } =  await req.params;
+
+  let temp
+
+  try{
+    temp = await getWeather(zip)
+  }catch(e){
+
+    temp = {
+      "error": "request invalid"
+    }
+  }
+  
+  console.log(temp)
+  
+  res.send(temp);
+})
+
 app.use(function (err, req, res, next) {
   res.status(500).send({type: err.name, message: err.message});
 });
 
 // Listening to a network port
-const port = 8000;
+const port = 8080;
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
