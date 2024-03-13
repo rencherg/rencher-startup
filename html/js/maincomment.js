@@ -24,7 +24,7 @@ loginForm.addEventListener("submit", (e) => {
     if(comment.value === ''){
         errorMessage= 'Comment must not be blank'
     }else{
-        
+
         let data={
             "postData":storageContents,
             "commentText":comment.value,
