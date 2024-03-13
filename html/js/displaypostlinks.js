@@ -1,9 +1,9 @@
 let postData = localStorage.getItem('samplePostData')
-posts=JSON.parse(postData)
+let loadedPosts=JSON.parse(postData)
 
 let divParent = document.querySelector('.main-link');
 
-function loadData() {
+async function loadData() {
     return new Promise((resolve, reject) => {
 
         if (!localStorage.getItem("dataLoaded")){
@@ -18,15 +18,45 @@ function loadData() {
         
                 return response.json()
             }).then(responseData => {
+                posts = responseData.samplePostData
+
                 localStorage.setItem("samplePostData", JSON.stringify(responseData.samplePostData));
                 localStorage.setItem("sampleUsers", JSON.stringify(responseData.sampleUsers));
                 localStorage.setItem("dataLoaded", true);
                 localStorage.setItem("sampleWebsocketData", JSON.stringify(responseData.sampleWebsocketData));
+
+                return posts
         
+            }).then(posts =>{
+                posts["posts"].forEach(post => {
+
+                    // console.log('here')
+            
+                    let aTag = document.createElement("a");
+                    aTag.textContent = post["message"];
+                    let pTag = document.createElement("p");
+                    pTag.textContent = 'By '+ post["user"];
+                
+                    aTag.href = 'post.html?id='+post["id"]
+                    divParent.appendChild(aTag);
+                    divParent.appendChild(pTag);
+                });
             })
             .catch(error => {
                 // Handle error here
                 console.error('There was a problem with your fetch operation:', error);
+            });
+        }else{
+            loadedPosts["posts"].forEach(post => {
+
+                let aTag = document.createElement("a");
+                aTag.textContent = post["message"];
+                let pTag = document.createElement("p");
+                pTag.textContent = 'By '+post["user"];
+            
+                aTag.href = 'post.html?id='+post["id"]
+                divParent.appendChild(aTag);
+                divParent.appendChild(pTag);
             });
         }
 
@@ -35,18 +65,43 @@ function loadData() {
     });
 }
 
-loadData().then(()=>{
-    posts["posts"].forEach(post => {
+// loadData().then(()=>{
+//     posts["posts"].forEach(post => {
 
-        let aTag = document.createElement("a");
-        aTag.textContent = post["message"];
-        let pTag = document.createElement("p");
-        pTag.textContent = 'By '+post["user"];
+//         let aTag = document.createElement("a");
+//         aTag.textContent = post["message"];
+//         let pTag = document.createElement("p");
+//         pTag.textContent = 'By '+post["user"];
     
-        aTag.href = 'post.html?id='+post["id"]
-        divParent.appendChild(aTag);
-        divParent.appendChild(pTag);
-    });
-}).catch(error =>{
-    console.error(error)
-})
+//         aTag.href = 'post.html?id='+post["id"]
+//         divParent.appendChild(aTag);
+//         divParent.appendChild(pTag);
+//     });
+// }).catch(error =>{
+//     console.error(error)
+// })
+
+// async function displayInfo(){
+//     try{
+//         await loadData()
+//         // let postData = localStorage.getItem('samplePostData')
+//         // let posts=JSON.parse(postData)
+//         posts["posts"].forEach(post => {
+
+//             console.log('here')
+    
+//             let aTag = document.createElement("a");
+//             aTag.textContent = post["message"];
+//             let pTag = document.createElement("p");
+//             pTag.textContent = 'By '+post["user"];
+        
+//             aTag.href = 'post.html?id='+post["id"]
+//             divParent.appendChild(aTag);
+//             divParent.appendChild(pTag);
+//         });
+//     }catch(e){
+//         console.error(e)
+//     }
+// }
+
+loadData()

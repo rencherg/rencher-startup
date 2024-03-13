@@ -27,14 +27,6 @@ registerForm.addEventListener("submit", (e) => {
             "comments": []
         }
 
-        // postList.push({
-        //     "user":localStorage.getItem("currentUser"),
-        //     "message":text.value,
-        //     "id":postList.length+1,
-        //     "comment_id":1,
-        //     "comments": []
-        // })
-
         fetch('/post', {
             method: 'POST',
             headers: {
@@ -55,7 +47,7 @@ registerForm.addEventListener("submit", (e) => {
         // postData["posts"] = postList
         localStorage.removeItem("samplePostData", JSON.stringify(postData))
         localStorage.removeItem("dataLoaded", JSON.stringify(postData))
-        window.location.href = "/post.html?id=" + data["id"];
+        window.location.href = "/"
 
     }
 

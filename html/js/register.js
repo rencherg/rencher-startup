@@ -57,6 +57,7 @@ registerForm.addEventListener("submit", (e) => {
         localStorage.removeItem("dataLoaded")
         localStorage.setItem("loggedIn", true)
         localStorage.setItem("currentUser", username.value)
+        localStorage.setItem("zipcode", zip.value)
         window.location.href = "/";
     }
 
