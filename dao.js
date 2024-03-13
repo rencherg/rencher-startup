@@ -149,8 +149,6 @@ function addPost(obj){
 
 function processComment(postData, commentText, currentPostID, parentID){
 
-    console.log('hello again')
-
     let desiredPost = ''
     let postIndex
 
@@ -165,8 +163,6 @@ function processComment(postData, commentText, currentPostID, parentID){
 
     //If we are replying to the main post
     if(parentID === 'post-content'){
-                
-        console.log('another hello')
 
         samplePostData["posts"][postIndex]['comments'].push({
             "user":desiredPost['user'],
@@ -176,9 +172,6 @@ function processComment(postData, commentText, currentPostID, parentID){
         })
 
         samplePostData['posts'][postIndex]['comment_id'] = samplePostData['posts'][postIndex]['comment_id']+1
-
-        console.log(samplePostData)
-        console.log(samplePostData.posts[1].comments)
 
     }
 
@@ -194,8 +187,6 @@ function processComment(postData, commentText, currentPostID, parentID){
         }
     }
 
-    console.log(samplePostData)
-    console.log(samplePostData.posts[1].comments)
     return postData
 }
 

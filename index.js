@@ -5,7 +5,9 @@ const app = express();
 const {data, processComment, addToUsers, addPost, addToWebsocket} = require('./dao.js');
 const getWeather = require('./weather.js')
 
-app.use(express.static('html'));
+const port = process.argv.length > 2 ? process.argv[2] : 3000;
+
+app.use(express.static('public'));
 
 // Error middleware
 app.get('/error', (req, res, next) => {
@@ -46,7 +48,6 @@ app.put('/comment', (req, res) => {
 
   req.body.postData
 
-  console.log('hello')
   processComment(req.body.postData, req.body.commentText, req.body.currentPostID, req.body.parentID)
   addToWebsocket(req.body.commentText)
 
@@ -76,7 +77,7 @@ app.use(function (err, req, res, next) {
 });
 
 // Listening to a network port
-const port = 8080;
+// const port = 8080;
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
