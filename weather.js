@@ -1,5 +1,5 @@
 async function getWeather(zipCode){
-    const weatherApiKey = 'key';
+    const weatherApiKey = 'e351ed4582104db6b1310847241303';
     const url = `http://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${zipCode}&units=imperial`;
     
     try {

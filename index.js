@@ -81,3 +81,12 @@ app.use(function (err, req, res, next) {
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
+
+//Todo
+
+//get DB credentials
+//put them in a file
+//import file and make basic db call logic 1
+//Connect everything in the project to it 2
+//Password encryption 4
+//Cookies and new login endpoints 3
