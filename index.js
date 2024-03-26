@@ -1,3 +1,4 @@
+// const cookieParser = require('cookie-parser');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
@@ -84,8 +85,8 @@ app.listen(port, function () {
 
 //Todo
 
-//get DB credentials
-//put them in a file
+//get DB credentials✅
+//put them in a file✅
 //import file and make basic db call logic 1
 //Connect everything in the project to it 2
 //Password encryption 4
