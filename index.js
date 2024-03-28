@@ -3,7 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
 
-const {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken} = require('./dao.js');
+const {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken, addUserDb, addPostDb, addToWebsocketDb, updatePostData} = require('./dao.js');
 const getWeather = require('./weather.js')
 
 const port = process.argv.length > 2 ? process.argv[2] : 3030;
@@ -41,23 +41,29 @@ app.use(bodyParser.json());
 //This will be changed but right now it only adds a user to the database
 app.post('/register', (req, res) => {
 
-  addToUsers(req.body)
+  // addToUsers(req.body)
+  addUserDb(req.body)
 
   res.send({"message": "Data received successfully."});
 });
 
 app.post('/post', (req, res, next) => {
-  addPost(req.body)
+  // addPost(req.body)
+  addPostDb(req.body)
 
   res.send({"message": "Data received successfully."});
 });
 
-app.put('/comment', (req, res) => {
+app.put('/comment', async (req, res) => {
 
   req.body.postData
 
-  processComment(req.body.postData, req.body.commentText, req.body.currentPostID, req.body.parentID)
-  addToWebsocket(req.body.commentText)
+  obj = await processComment(req.body.postData, req.body.commentText, req.body.currentPostID, req.body.parentID)
+  // addToWebsocket(req.body.commentText)
+  console.log('obj: ')
+  console.log(obj)
+  updatePostData(obj)
+  addToWebsocketDb(req.body.commentText)
 
   res.send({"message": "ok"});
 });

@@ -16,6 +16,8 @@ registerForm.addEventListener("submit", (e) => {
 
     errorMessage=''
 
+    console.log(users)
+
     users.forEach(user => {
 
         if (username.value === user["username"]) {

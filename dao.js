@@ -245,50 +245,6 @@ function addComment(comment, parentID, newID, user, newMessage){
     }
 }
 
-// async function organizeExports() {
-
-//     const data = await getAllItems()
-//         // {
-//         //     "sampleUsers": sampleUsers,
-//         //     "samplePostData": samplePostData,
-//         //     "sampleWebsocketData": sampleWebsocketData
-//         // }
-
-//     // console.log(data)
-//     module.exports = {data, processComment, addToUsers, addPost, addToWebsocket, getAllItems}
-
-// }
-
-// console.log('here')
-
-// (async function testConnection() {
-//   await client.connect();
-//   await db.command({ ping: 1 });
-// })().catch((ex) => {
-//   console.log(`Unable to connect to database with ${url} because ${ex.message}`);
-//   process.exit(1);
-// });
-
-// (async function testConnection() {
-//     try {
-//       // Connect with a timeout of 10 seconds
-//       await Promise.race([
-//         client.connect(),
-//         new Promise((_, reject) => setTimeout(() => reject(new Error('Connection timeout')), 10000))
-//       ]);
-  
-//       await db.command({ ping: 1 });
-//       console.log('Connected to MongoDB');
-//     } catch (ex) {
-//       console.log(`Unable to connect to database with ${url} because ${ex.message}`);
-//       process.exit(1);
-//     } finally {
-//       // Close the client
-//       await client.close();
-//     }
-//   })();
-
-  // Define async function to retrieve all items from the collection
 async function getAllItems() {
 
     const client = new MongoClient(url);
@@ -298,10 +254,8 @@ async function getAllItems() {
     let data = {}
 
     try {
-        // Connect to the MongoDB server
         await client.connect();
 
-        // Access the database and collection
         const collection = db.collection(collectionName);
 
         const postData = await collection.findOne({ _id: new ObjectId(postDataId) });
@@ -313,9 +267,7 @@ async function getAllItems() {
         // console.log(websocketData)
 
         data = {
-            "sampleUsers": {
-                "userlist": sampleUsers
-            },
+            "sampleUsers": userData,
             "samplePostData": {
                 "posts": postData.posts
             },
@@ -324,28 +276,10 @@ async function getAllItems() {
             }
         }
 
-        // console.log(data)
-
-        // // Retrieve all documents from the collection
-        // const cursor = collection.find({});
-
-        // // Iterate over the documents and log each one
-        // await cursor.forEach(document => {
-        //     console.log(document);
-        // });
-
-        // // Retrieve all documents from the collection
-        // const cursor2 = collection.find({'660361f2fef954de8f3df06e'});
-
-        // await cursor2.forEach(document => {
-        //     console.log(document);
-        // });
-
         console.log("All items retrieved successfully!");
     } catch (error) {
         console.error("Error retrieving items:", error);
     } finally {
-        // Close the MongoDB connection
         await client.close();
         return data
     }
@@ -357,10 +291,8 @@ async function addToWebsocketDb(newString) {
     const collectionName = 'app_data';
 
     try {
-        // Connect to the MongoDB server
         await client.connect();
 
-        // Access the database and collection
         const collection = db.collection(collectionName);
 
         await collection.updateOne(
@@ -373,7 +305,6 @@ async function addToWebsocketDb(newString) {
     } catch (error) {
         console.error('Error updating document:', error);
     } finally {
-        // Close the MongoDB connection
         await client.close();
     }
 }
@@ -541,6 +472,7 @@ async function resetDb(){
     await updateWebsocketData(sampleWebsocketData)
 }
 
+//These are both for testing
 let samplePost={
     "user":"ya boy",
     "message":"bom dia",
@@ -563,7 +495,7 @@ let sampleUser={
 // Call the function to retrieve all items
 // getAllItems();
 // organizeExports();
-module.exports = {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken}
+module.exports = {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken, addUserDb, addPostDb, addToWebsocketDb, updatePostData}
 
 //db actions needed -
 //get all items✅
@@ -571,8 +503,7 @@ module.exports = {processComment, addToUsers, addPost, addToWebsocket, getAllIte
 //modify user in db(authToken)✅
 //Addwebsocket data,✅
 //Add post✅
-//Add comment
+//Add comment✅
 
-// updatePostData(samplePostData)
-
-resetDb()
+//For resetting the DB
+// resetDb()
