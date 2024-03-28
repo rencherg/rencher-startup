@@ -3,10 +3,10 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
 
-const {data, processComment, addToUsers, addPost, addToWebsocket} = require('./dao.js');
+const {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken} = require('./dao.js');
 const getWeather = require('./weather.js')
 
-const port = process.argv.length > 2 ? process.argv[2] : 3000;
+const port = process.argv.length > 2 ? process.argv[2] : 3030;
 
 app.use(express.static('public'));
 
@@ -16,9 +16,16 @@ app.get('/error', (req, res, next) => {
 });
 
 //getting backend data
-app.get('/data', (req, res, next) => {
-  res.send(data);
-});
+app.get('/data', async (req, res, next) => {
+  try {
+    const siteData = await getAllItems()
+    // console.log(siteData)
+    res.send(siteData);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+})
 
 //These two will be implemented later
 // app.post('/login', (req, res, next) => {
@@ -87,7 +94,9 @@ app.listen(port, function () {
 
 //get DB credentials✅
 //put them in a file✅
-//import file and make basic db call logic 1
+//import file ✅ and make basic db call logic 1
 //Connect everything in the project to it 2
 //Password encryption 4
 //Cookies and new login endpoints 3
+
+updateUserAuthToken('rencherg', 'nviorenvjufikren')

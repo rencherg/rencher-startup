@@ -18,6 +18,7 @@ async function loadData() {
         
                 return response.json()
             }).then(responseData => {
+                console.log(responseData)
                 posts = responseData.samplePostData
 
                 localStorage.setItem("samplePostData", JSON.stringify(responseData.samplePostData));
@@ -44,6 +45,7 @@ async function loadData() {
                 console.error('There was a problem with your fetch operation:', error);
             });
         }else{
+            console.log(loadedPosts)
             loadedPosts["posts"].forEach(post => {
 
                 let aTag = document.createElement("a");

@@ -1,5 +1,10 @@
 const config = require('./dbConfig.json');
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
+const { MongoClient, ObjectId } = require('mongodb');
+
+const postDataId = '660361f2fef954de8f3df06e'
+const userDataId = '6603618bfef954de8f3df06d'
+const websocketDataId = '660362a1fef954de8f3df06f'
 
 let sampleUsers = {
     "userlist":[
@@ -7,25 +12,36 @@ let sampleUsers = {
         "username":"rencherg",
         "password":"password",
         "zipcode":84003,
-        "lat/long":"<latlong here>"
+        "lat/long":"<latlong here>",
+        "authToken":""
     },
     {
         "username":"foxmulder",
         "password":"password",
         "zipcode":20535,
-        "lat/long":"<latlong here>"
+        "lat/long":"<latlong here>",
+        "authToken":""
     },
     {
         "username":"dscully",
         "password":"password",
         "zipcode":20535,
-        "lat/long":"<latlong here>"
+        "lat/long":"<latlong here>",
+        "authToken":""
+    },
+    {
+        "username":"wskinner",
+        "password":"password",
+        "zipcode":20535,
+        "lat/long":"<latlong here>",
+        "authToken":""
     },
     {
         "username":"test",
         "password":"test",
         "zipcode":84003,
-        "lat/long":"<latlong here>"
+        "lat/long":"<latlong here>",
+        "authToken":""
     }
 ]}
 
@@ -35,7 +51,7 @@ let samplePostData = {
         "user":"rencherg",
         "message":"This is my sample post, click on me or any comment to make a comment",
         "id":1,
-        "comment_id":13,
+        "comment_id":15,
         "comments": [
             {
                 "user":"rencherg",
@@ -84,6 +100,18 @@ let samplePostData = {
                                                         "user":"rencherg",
                                                         "message":"Another comment",
                                                         "id":12,
+                                                        "subcomments":[]
+                                                    },
+                                                    {
+                                                        "user":"rencherg",
+                                                        "message":"Late",
+                                                        "id":13,
+                                                        "subcomments":[]
+                                                    },
+                                                    {
+                                                        "user":"rencherg",
+                                                        "message":"Bom dia",
+                                                        "id":14,
                                                         "subcomments":[]
                                                     }
                                                 ]
@@ -134,7 +162,7 @@ let samplePostData = {
 
 let sampleWebsocketData = {
     "data":[
-        "comment", "comment2", "more sample comments", "another", "ok", "Another sample comment"
+        "comment", "comment2", "more sample comments", "another", "ok", "Another sample comment", "late", "Bom dia"
     ]
 }
 
@@ -217,10 +245,334 @@ function addComment(comment, parentID, newID, user, newMessage){
     }
 }
 
-let data = 
-        {
-            "sampleUsers": sampleUsers,
-            "samplePostData": samplePostData,
-            "sampleWebsocketData": sampleWebsocketData
+// async function organizeExports() {
+
+//     const data = await getAllItems()
+//         // {
+//         //     "sampleUsers": sampleUsers,
+//         //     "samplePostData": samplePostData,
+//         //     "sampleWebsocketData": sampleWebsocketData
+//         // }
+
+//     // console.log(data)
+//     module.exports = {data, processComment, addToUsers, addPost, addToWebsocket, getAllItems}
+
+// }
+
+// console.log('here')
+
+// (async function testConnection() {
+//   await client.connect();
+//   await db.command({ ping: 1 });
+// })().catch((ex) => {
+//   console.log(`Unable to connect to database with ${url} because ${ex.message}`);
+//   process.exit(1);
+// });
+
+// (async function testConnection() {
+//     try {
+//       // Connect with a timeout of 10 seconds
+//       await Promise.race([
+//         client.connect(),
+//         new Promise((_, reject) => setTimeout(() => reject(new Error('Connection timeout')), 10000))
+//       ]);
+  
+//       await db.command({ ping: 1 });
+//       console.log('Connected to MongoDB');
+//     } catch (ex) {
+//       console.log(`Unable to connect to database with ${url} because ${ex.message}`);
+//       process.exit(1);
+//     } finally {
+//       // Close the client
+//       await client.close();
+//     }
+//   })();
+
+  // Define async function to retrieve all items from the collection
+async function getAllItems() {
+
+    const client = new MongoClient(url);
+    const db = client.db('app_data');
+    const collectionName = 'app_data';
+
+    let data = {}
+
+    try {
+        // Connect to the MongoDB server
+        await client.connect();
+
+        // Access the database and collection
+        const collection = db.collection(collectionName);
+
+        const postData = await collection.findOne({ _id: new ObjectId(postDataId) });
+        const userData = await collection.findOne({ _id: new ObjectId(userDataId) });
+        const websocketData = await collection.findOne({ _id: new ObjectId(websocketDataId) });
+
+        // console.log(postData)
+        // console.log(userData)
+        // console.log(websocketData)
+
+        data = {
+            "sampleUsers": {
+                "userlist": sampleUsers
+            },
+            "samplePostData": {
+                "posts": postData.posts
+            },
+            "sampleWebsocketData": {
+                "data": websocketData.data
+            }
         }
-module.exports = {data, processComment, addToUsers, addPost, addToWebsocket}
+
+        // console.log(data)
+
+        // // Retrieve all documents from the collection
+        // const cursor = collection.find({});
+
+        // // Iterate over the documents and log each one
+        // await cursor.forEach(document => {
+        //     console.log(document);
+        // });
+
+        // // Retrieve all documents from the collection
+        // const cursor2 = collection.find({'660361f2fef954de8f3df06e'});
+
+        // await cursor2.forEach(document => {
+        //     console.log(document);
+        // });
+
+        console.log("All items retrieved successfully!");
+    } catch (error) {
+        console.error("Error retrieving items:", error);
+    } finally {
+        // Close the MongoDB connection
+        await client.close();
+        return data
+    }
+}
+
+async function addToWebsocketDb(newString) {
+    const client = new MongoClient(url);
+    const db = client.db('app_data');
+    const collectionName = 'app_data';
+
+    try {
+        // Connect to the MongoDB server
+        await client.connect();
+
+        // Access the database and collection
+        const collection = db.collection(collectionName);
+
+        await collection.updateOne(
+            { "_id": new ObjectId(websocketDataId) },
+            { $push: { "data": newString } }
+        );
+
+        console.log('New string added successfully');
+
+    } catch (error) {
+        console.error('Error updating document:', error);
+    } finally {
+        // Close the MongoDB connection
+        await client.close();
+    }
+}
+
+async function addPostDb(obj) {
+    const client = new MongoClient(url);
+    const db = client.db('app_data');
+    const collectionName = 'app_data';
+
+    try {
+        // Connect to the MongoDB server
+        await client.connect();
+
+        // Access the database and collection
+        const collection = db.collection(collectionName);
+
+        await collection.updateOne(
+            { "_id": new ObjectId(postDataId) },
+            { $push: { "posts": obj } }
+        );
+
+        console.log('New post added successfully');
+
+    } catch (error) {
+        console.error('Error updating document:', error);
+    } finally {
+        // Close the MongoDB connection
+        await client.close();
+    }
+}
+
+async function addUserDb(obj) {
+    const client = new MongoClient(url);
+    const db = client.db('app_data');
+    const collectionName = 'app_data';
+
+    try {
+        // Connect to the MongoDB server
+        await client.connect();
+
+        // Access the database and collection
+        const collection = db.collection(collectionName);
+
+        await collection.updateOne(
+            { "_id": new ObjectId(userDataId) },
+            { $push: { "userlist": obj } }
+        );
+
+        console.log('New post added successfully');
+
+    } catch (error) {
+        console.error('Error updating document:', error);
+    } finally {
+        // Close the MongoDB connection
+        await client.close();
+    }
+}
+
+async function updateUserAuthToken(username, newToken) {
+    const client = new MongoClient(url);
+    const db = client.db('app_data');
+    const collectionName = 'app_data';
+
+    try {
+        // Connect to the MongoDB server
+        await client.connect();
+
+        const collection = db.collection(collectionName);
+
+        // Find the document containing the userlist array
+        const userData = await collection.findOne({ _id: new ObjectId(userDataId) });
+
+        // Find the user with the specified username within the userlist array
+        const user = userData.userlist.find(user => user.username === username);
+
+        // Update the authToken for the found user
+        if (user) {
+            user.authToken = newToken;
+        } else {
+            console.error('User not found.');
+            return;
+        }
+
+        // Update the document in the collection
+        await collection.updateOne({ _id: userData._id }, { $set: { userlist: userData.userlist } })
+
+    } catch (error) {
+        console.error('Error updating user authToken:', error);
+    } finally {
+        // Close the MongoDB connection
+        await client.close();
+    }
+}
+
+async function updatePostData(newPostData) {
+    const client = new MongoClient(url);
+    const db = client.db('app_data');
+    const collectionName = 'app_data';
+
+    try {
+        await client.connect();
+
+        const collection = db.collection(collectionName);
+
+        await collection.updateOne(
+            { _id: new ObjectId(postDataId) },
+            { $set: newPostData }
+        );
+
+    } catch (error) {
+        console.error('Error replacing document:', error);
+    } finally {
+        await client.close();
+    }
+}
+
+async function updateUserData(newUserData) {
+    const client = new MongoClient(url);
+    const db = client.db('app_data');
+    const collectionName = 'app_data';
+
+    try {
+        await client.connect();
+
+        const collection = db.collection(collectionName);
+
+        await collection.updateOne(
+            { _id: new ObjectId(userDataId) },
+            { $set: newUserData }
+        );
+
+    } catch (error) {
+        console.error('Error replacing document:', error);
+    } finally {
+        await client.close();
+    }
+}
+
+async function updateWebsocketData(newWebsocketData) {
+    const client = new MongoClient(url);
+    const db = client.db('app_data');
+    const collectionName = 'app_data';
+
+    try {
+        await client.connect();
+
+        const collection = db.collection(collectionName);
+
+        await collection.updateOne(
+            { _id: new ObjectId(websocketDataId) },
+            { $set: newWebsocketData }
+        );
+
+    } catch (error) {
+        console.error('Error replacing document:', error);
+    } finally {
+        await client.close();
+    }
+}
+
+//Effectively resets the data in the db with the sample data
+async function resetDb(){
+    await updatePostData(samplePostData)
+    await updateUserData(sampleUsers)
+    await updateWebsocketData(sampleWebsocketData)
+}
+
+let samplePost={
+    "user":"ya boy",
+    "message":"bom dia",
+    "id":"3",
+    "comment_id":1,
+    "comments": []
+}
+
+let sampleUser={
+    
+    "username":"bud",
+    "password":"password",
+    "zipcode":84003,
+    "lat/long":"<latlong here>",
+    "authToken":""
+    
+}
+
+
+// Call the function to retrieve all items
+// getAllItems();
+// organizeExports();
+module.exports = {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken}
+
+//db actions needed -
+//get all items✅
+//Add user to db✅
+//modify user in db(authToken)✅
+//Addwebsocket data,✅
+//Add post✅
+//Add comment
+
+// updatePostData(samplePostData)
+
+resetDb()
