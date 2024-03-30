@@ -4,7 +4,10 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const uuid = require('uuid');
 
-const {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken, addUserDb, addPostDb, addToWebsocketDb, updatePostData} = require('./dao.js');
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
+const {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken, addUserDb, addPostDb, addToWebsocketDb, updatePostData, getAllUsers} = require('./dao.js');
 const getWeather = require('./weather.js')
 
 const port = process.argv.length > 2 ? process.argv[2] : 3040;
@@ -28,17 +31,50 @@ app.get('/data', async (req, res, next) => {
   }
 })
 
-//These two will be implemented later
-// app.post('/login', (req, res, next) => {
-//   res.send({"message": "ok"});
-// });
+//Model object body that we will use
+sampleLoginObject = {
+  "username": "username",
+  "password": "password"
+}
+
+app.post('/login', async (req, res, next) => {
+  userList = await getAllUsers()
+
+  console.log(userList)
+
+  found = false
+  let foundUserZip
+
+  userList.forEach(element => {
+    if((req.body.username === element.username) && (req.body.password === element.password)){
+      found = true
+      foundUserZip = element.zipcode
+    }
+  });
+
+  if(found){
+
+    const token = uuid.v4();
+
+    updateUserAuthToken(req.body.username, token)
+
+    const response = {
+      "message": "success",
+      "authToken": token,
+      "userZip": foundUserZip
+    }
+
+    res.send(response);
+  }else{
+    res.send({"message": "invalid credentials"});
+  }
+
+});
 
 // app.post('/logout', (req, res, next) => {
 //   res.send({"message": "ok"});
 // });
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
 //This will be changed but right now it only adds a user to the database
 app.post('/register', (req, res) => {
 

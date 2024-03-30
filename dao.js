@@ -303,7 +303,7 @@ async function getAllUsers(){
 
         // console.log(userData)
 
-        console.log("All items retrieved successfully!");
+        // console.log("All items retrieved successfully!");
     } catch (error) {
         console.error("Error retrieving items:", error);
     } finally {
@@ -522,7 +522,7 @@ let sampleUser={
 // Call the function to retrieve all items
 // getAllItems();
 // organizeExports();
-module.exports = {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken, addUserDb, addPostDb, addToWebsocketDb, updatePostData}
+module.exports = {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken, addUserDb, addPostDb, addToWebsocketDb, updatePostData, getAllUsers}
 
 //db actions needed -
 //get all items✅
@@ -534,4 +534,4 @@ module.exports = {processComment, addToUsers, addPost, addToWebsocket, getAllIte
 
 //For resetting the DB
 // resetDb()
-getAllUsers()
+// getAllUsers()
