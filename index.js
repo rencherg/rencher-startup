@@ -2,6 +2,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
+const uuid = require('uuid');
 
 const {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken, addUserDb, addPostDb, addToWebsocketDb, updatePostData} = require('./dao.js');
 const getWeather = require('./weather.js')
@@ -111,7 +112,8 @@ app.listen(port, function () {
 //new login endpoints 1
 
 //1 Get all users endpoint✅
-//2 Login Endpoint that returns token and weather data
+//2a Ability to generate tokens✅
+//2b Login Endpoint that returns token and weather data
 //3 Logout endpoint that deleted token
 //4 Register endpoint that also returns token and weather data
 //5 Remove user data from front end
