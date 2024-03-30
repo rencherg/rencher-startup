@@ -184,10 +184,10 @@ function processComment(postData, commentText, currentPostID, parentID){
     let postIndex
 
     //find correct post
-    for(let i = 0; i < samplePostData["posts"].length; i++){
-        if(samplePostData["posts"][i]["id"].toString()===currentPostID.toString()){
+    for(let i = 0; i < postData["posts"].length; i++){
+        if(postData["posts"][i]["id"].toString()===currentPostID.toString()){
 
-            desiredPost = samplePostData["posts"][i]
+            desiredPost = postData["posts"][i]
             postIndex = i
         }
     }
@@ -195,14 +195,14 @@ function processComment(postData, commentText, currentPostID, parentID){
     //If we are replying to the main post
     if(parentID === 'post-content'){
 
-        samplePostData["posts"][postIndex]['comments'].push({
+        postData["posts"][postIndex]['comments'].push({
             "user":desiredPost['user'],
             "message":commentText,
             "id":desiredPost['comment_id'],
             "subcomments":[]
         })
 
-        samplePostData['posts'][postIndex]['comment_id'] = samplePostData['posts'][postIndex]['comment_id']+1
+        postData['posts'][postIndex]['comment_id'] = postData['posts'][postIndex]['comment_id']+1
 
     }
 
@@ -212,8 +212,8 @@ function processComment(postData, commentText, currentPostID, parentID){
         if(updatedPost!== null){
 
             desiredPost['comments'][i] = updatedPost
-            samplePostData['posts'][postIndex]['comment_id'] = samplePostData['posts'][postIndex]['comment_id']+1
-            samplePostData['posts'][postIndex] = desiredPost
+            postData['posts'][postIndex]['comment_id'] = postData['posts'][postIndex]['comment_id']+1
+            postData['posts'][postIndex] = desiredPost
 
         }
     }
@@ -501,7 +501,7 @@ module.exports = {processComment, addToUsers, addPost, addToWebsocket, getAllIte
 //get all items✅
 //Add user to db✅
 //modify user in db(authToken)✅
-//Addwebsocket data,✅
+//Addwebsocket data✅
 //Add post✅
 //Add comment✅
 

@@ -6,7 +6,7 @@ const app = express();
 const {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken, addUserDb, addPostDb, addToWebsocketDb, updatePostData} = require('./dao.js');
 const getWeather = require('./weather.js')
 
-const port = process.argv.length > 2 ? process.argv[2] : 3030;
+const port = process.argv.length > 2 ? process.argv[2] : 3040;
 
 app.use(express.static('public'));
 
@@ -58,10 +58,14 @@ app.put('/comment', async (req, res) => {
 
   req.body.postData
 
+
+  console.log('body')
+  console.log(req.body)
+
   obj = await processComment(req.body.postData, req.body.commentText, req.body.currentPostID, req.body.parentID)
   // addToWebsocket(req.body.commentText)
   console.log('obj: ')
-  console.log(obj)
+  console.log(obj.posts[0].comments[0])
   updatePostData(obj)
   addToWebsocketDb(req.body.commentText)
 
