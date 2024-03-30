@@ -285,6 +285,33 @@ async function getAllItems() {
     }
 }
 
+async function getAllUsers(){
+    const client = new MongoClient(url);
+    const db = client.db('app_data');
+    const collectionName = 'app_data';
+
+    userData = []
+
+    try {
+        await client.connect();
+
+        const collection = db.collection(collectionName);
+
+        const response = await collection.findOne({ _id: new ObjectId(userDataId) });
+
+        userData = response.userlist
+
+        // console.log(userData)
+
+        console.log("All items retrieved successfully!");
+    } catch (error) {
+        console.error("Error retrieving items:", error);
+    } finally {
+        await client.close();
+        return userData
+    }
+}
+
 async function addToWebsocketDb(newString) {
     const client = new MongoClient(url);
     const db = client.db('app_data');
@@ -507,3 +534,4 @@ module.exports = {processComment, addToUsers, addPost, addToWebsocket, getAllIte
 
 //For resetting the DB
 // resetDb()
+getAllUsers()

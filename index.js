@@ -104,9 +104,20 @@ app.listen(port, function () {
 
 //get DB credentials✅
 //put them in a file✅
-//import file ✅ and make basic db call logic 1
-//Connect everything in the project to it 2
-//Password encryption 4
-//Cookies and new login endpoints 3
+//import file ✅ and make basic db call logic 1✅
+//Connect everything in the project to it 2✅
+//Password encryption 3
+//Cookies 2
+//new login endpoints 1
+
+//1 Get all users endpoint✅
+//2 Login Endpoint that returns token and weather data
+//3 Logout endpoint that deleted token
+//4 Register endpoint that also returns token and weather data
+//5 Remove user data from front end
+//6 Ability to check if token (from cookie) is valid only for new posts is this used. Returns usernamen and weather data
+//7 Slightly change new posts funciton to use the verification endpoint
+//8 Slightly change is logged in function to check for cookies
+//9 BCrypt
 
 updateUserAuthToken('rencherg', 'nviorenvjufikren')

@@ -2,6 +2,8 @@ let loginForm = document.getElementById("login-form");
 let storageContents = JSON.parse(localStorage.getItem('sampleUsers'))
 let users = storageContents.userlist
 
+
+//endpoint call here - if good credentials then return token
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
   
