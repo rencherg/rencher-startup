@@ -301,9 +301,6 @@ async function getAllUsers(){
 
         userData = response.userlist
 
-        // console.log(userData)
-
-        // console.log("All items retrieved successfully!");
     } catch (error) {
         console.error("Error retrieving items:", error);
     } finally {

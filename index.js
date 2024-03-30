@@ -32,10 +32,10 @@ app.get('/data', async (req, res, next) => {
 })
 
 //Model object body that we will use
-sampleLoginObject = {
-  "username": "username",
-  "password": "password"
-}
+// sampleLoginObject = {
+//   "username": "username",
+//   "password": "password"
+// }
 
 app.post('/login', async (req, res, next) => {
   userList = await getAllUsers()
@@ -71,9 +71,37 @@ app.post('/login', async (req, res, next) => {
 
 });
 
-// app.post('/logout', (req, res, next) => {
-//   res.send({"message": "ok"});
-// });
+
+//Model object body that we will use
+// sampleLoginObject = {
+//   "username": "username"
+// }
+app.post('/logout', async (req, res, next) => {
+  userList = await getAllUsers()
+
+  console.log(userList)
+
+  found = false
+
+  userList.forEach(element => {
+    if((req.body.username === element.username)){
+      found = true
+    }
+  });
+
+  if(found){
+    
+    updateUserAuthToken(req.body.username, '')
+
+    const response = {
+      "message": "success",
+    }
+
+    res.send(response);
+  }else{
+    res.send({"message": "invalid credentials"});
+  }
+});
 
 //This will be changed but right now it only adds a user to the database
 app.post('/register', (req, res) => {
@@ -149,8 +177,8 @@ app.listen(port, function () {
 
 //1 Get all users endpoint✅
 //2a Ability to generate tokens✅
-//2b Login Endpoint that returns token and weather data
-//3 Logout endpoint that deleted token
+//2b Login Endpoint that returns token and weather data✅
+//3 Logout endpoint that deletes token
 //4 Register endpoint that also returns token and weather data
 //5 Remove user data from front end
 //6 Ability to check if token (from cookie) is valid only for new posts is this used. Returns usernamen and weather data
