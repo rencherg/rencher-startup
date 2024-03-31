@@ -259,15 +259,12 @@ async function getAllItems() {
         const collection = db.collection(collectionName);
 
         const postData = await collection.findOne({ _id: new ObjectId(postDataId) });
-        const userData = await collection.findOne({ _id: new ObjectId(userDataId) });
         const websocketData = await collection.findOne({ _id: new ObjectId(websocketDataId) });
 
         // console.log(postData)
-        // console.log(userData)
         // console.log(websocketData)
 
         data = {
-            "sampleUsers": userData,
             "samplePostData": {
                 "posts": postData.posts
             },

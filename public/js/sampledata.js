@@ -147,7 +147,6 @@ if (!localStorage.getItem("dataLoaded")){
         return response.json()
     }).then(responseData => {
         localStorage.setItem("samplePostData", JSON.stringify(responseData.samplePostData));
-        localStorage.setItem("sampleUsers", JSON.stringify(responseData.sampleUsers));
         localStorage.setItem("dataLoaded", true);
         localStorage.setItem("sampleWebsocketData", JSON.stringify(responseData.sampleWebsocketData));
 

@@ -165,12 +165,13 @@ app.post('/register', async (req, res) => {
 
     const token = uuid.v4();
 
-    updateUserAuthToken(req.body.username, token)
+    updateUserAuthToken(data.username, token)
 
     const response = {
       "message": "success",
       "authToken": token,
-      "userZip": data.zipcode
+      "userZip": data.zipcode,
+      "username": data.username
     }
 
     setAuthUsernameCookies(res, token, req.body.username)
@@ -263,9 +264,9 @@ function setAuthUsernameCookies(res, authToken, username) {
 //2a Ability to generate tokens✅
 //2b Login Endpoint that returns token and weather data✅
 //3 Logout endpoint that deletes token✅
-//4 Register endpoint that also returns token and weather data
+//4 Register endpoint that also returns token and weather data✅
 //5 Remove user data from front end
 //6 Ability to check if token and username(from cookie) are valid only for new posts is this used. Returns confirmation and weather data✅
-//7 Slightly change new posts funciton to use the verification endpoint
+//7 Slightly change new posts function to use the verification endpoint
 //8 Slightly change is logged in function to check for cookies
 //9 BCrypt
