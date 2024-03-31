@@ -50,17 +50,4 @@ loginForm.addEventListener("submit", async (e) => {
         console.error('There was a problem with your fetch operation:', error);
         throw error;
     }
-
-    // users.forEach(user => {
-
-    //     if (username.value === user["username"] && password.value === user["password"]) {
-    //         localStorage.setItem("loggedIn", true)
-    //         localStorage.setItem("currentUser", username.value)
-    //         localStorage.setItem("zipcode", user['zipcode'])
-    //         window.location.href = "/";
-    //     }
-    // });
-
-    
-  
-  });
+});
