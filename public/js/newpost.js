@@ -6,7 +6,7 @@ let postList = postData["posts"]
 console.log(postData)
 console.log(postList)
 
-registerForm.addEventListener("submit", (e) => {
+registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
   
     let text = document.getElementById('post-input');
@@ -27,27 +27,26 @@ registerForm.addEventListener("submit", (e) => {
             "comments": []
         }
 
-        fetch('/post', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
+        try{
+            const response = await fetch('/post', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
 
-        })
-        .catch(error => {
+            localStorage.removeItem("samplePostData")
+            localStorage.removeItem("dataLoaded")
+            window.location.href = "/"
+        }catch(error){
             console.error('There was a problem with your fetch operation:', error);
-        });
 
-        // postData["posts"] = postList
-        localStorage.removeItem("samplePostData", JSON.stringify(postData))
-        localStorage.removeItem("dataLoaded", JSON.stringify(postData))
-        window.location.href = "/"
+        }
 
     }
 

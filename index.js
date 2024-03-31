@@ -108,6 +108,7 @@ app.post('/logout', async (req, res, next) => {
 //   "token": "token"
 // }
 
+//It will only work if the user is logged in
 app.post('/authenticate', async (req, res, next) => {
   const token = req.cookies['token'];
   const username = req.cookies['username'];
@@ -195,7 +196,7 @@ app.post('/post', async (req, res, next) => {
     res.send({"message": "Error: not logged in."});
   }else{
     // addPost(req.body)
-    addPostDb(req.body)
+    await addPostDb(req.body)
 
     res.send({"message": "Post added successfully."});
   }
