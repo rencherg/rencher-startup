@@ -8,7 +8,9 @@ async function updateNavBar(){
 
     if(localStorage.getItem("loggedIn")){
         loginTitle.textContent = 'Logout'
+
         username.textContent = localStorage.getItem("currentUser")
+
         let temp = await getTemp()
         if(temp!=undefined){
             tempTitle.textContent = temp + '°'

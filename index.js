@@ -58,7 +58,8 @@ app.post('/login', async (req, res, next) => {
     const response = {
       "message": "success",
       "authToken": token,
-      "userZip": foundUserZip
+      "userZip": foundUserZip,
+      "username": req.body.username
     }
 
     setAuthUsernameCookies(res, token, req.body.username)
