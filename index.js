@@ -93,6 +93,9 @@ app.post('/logout', async (req, res, next) => {
       "message": "success",
     }
 
+    res.clearCookie('token');
+    res.clearCookie('username');
+
     res.send(response);
   }else{
     res.send({"message": "invalid credentials"});
