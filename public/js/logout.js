@@ -1,5 +1,3 @@
-//some tweaking here - maybe an api call?
-
 async function logout(){
 
     if(localStorage.getItem("loggedIn")){
@@ -13,23 +11,7 @@ async function logout(){
                 throw new Error('Network response was not ok');
             }
         
-            const responseBody = await response.json();
-    
-            // if(responseBody.message === "success"){
-            //     localStorage.setItem("loggedIn", true)
-            //     localStorage.setItem("currentUser", responseBody.username)
-            //     localStorage.setItem("zipcode", responseBody.userZip)
-    
-            //     loginTitle.textContent = 'Logout'
-    
-            //     username.textContent = localStorage.getItem("currentUser")
-        
-            //     const temp = await getTemp()
-            //     if(temp!=undefined){
-            //         tempTitle.textContent = temp + '°'
-            //     }
-            //     localStorage.setItem("temp", temp)
-            // }
+            await response.json();
     
             localStorage.removeItem("loggedIn");
             localStorage.removeItem("currentUser");

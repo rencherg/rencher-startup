@@ -1,7 +1,6 @@
 let currentUrl = window.location.href;
 let urlObj = new URL(currentUrl);
 let id = urlObj.searchParams.get('id');
-console.log(id)
 
 let posts = JSON.parse(localStorage.getItem('samplePostData'))
 let title = document.getElementById('title');
@@ -9,7 +8,6 @@ let postContent = document.getElementById('post-content');
 let commentDiv = document.getElementById('loaded-comments');
 
 foundPost = null;
-// debugger;
 
 posts["posts"].forEach(post => {
 

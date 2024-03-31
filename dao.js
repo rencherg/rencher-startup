@@ -45,6 +45,10 @@ let sampleUsers = {
     }
 ]}
 
+const emptyUserList = {
+    "userlist":[]
+}
+
 let samplePostData = {
     "posts":[
     {
@@ -170,7 +174,7 @@ function addToWebsocket(comment){
     sampleWebsocketData['data'].push(comment)
 }
 
-function addToUsers(obj){
+async function addToUsers(obj){
     sampleUsers['userlist'].push(obj)
 }
 
@@ -261,9 +265,6 @@ async function getAllItems() {
         const postData = await collection.findOne({ _id: new ObjectId(postDataId) });
         const websocketData = await collection.findOne({ _id: new ObjectId(websocketDataId) });
 
-        // console.log(postData)
-        // console.log(websocketData)
-
         data = {
             "samplePostData": {
                 "posts": postData.posts
@@ -273,7 +274,6 @@ async function getAllItems() {
             }
         }
 
-        console.log("All items retrieved successfully!");
     } catch (error) {
         console.error("Error retrieving items:", error);
     } finally {
@@ -321,8 +321,6 @@ async function addToWebsocketDb(newString) {
             { $push: { "data": newString } }
         );
 
-        console.log('New string added successfully');
-
     } catch (error) {
         console.error('Error updating document:', error);
     } finally {
@@ -336,10 +334,8 @@ async function addPostDb(obj) {
     const collectionName = 'app_data';
 
     try {
-        // Connect to the MongoDB server
         await client.connect();
 
-        // Access the database and collection
         const collection = db.collection(collectionName);
 
         await collection.updateOne(
@@ -347,12 +343,9 @@ async function addPostDb(obj) {
             { $push: { "posts": obj } }
         );
 
-        console.log('New post added successfully');
-
     } catch (error) {
         console.error('Error updating document:', error);
     } finally {
-        // Close the MongoDB connection
         await client.close();
     }
 }
@@ -363,10 +356,8 @@ async function addUserDb(obj) {
     const collectionName = 'app_data';
 
     try {
-        // Connect to the MongoDB server
         await client.connect();
 
-        // Access the database and collection
         const collection = db.collection(collectionName);
 
         await collection.updateOne(
@@ -377,7 +368,6 @@ async function addUserDb(obj) {
     } catch (error) {
         console.error('Error updating document:', error);
     } finally {
-        // Close the MongoDB connection
         await client.close();
     }
 }
@@ -388,18 +378,14 @@ async function updateUserAuthToken(username, newToken) {
     const collectionName = 'app_data';
 
     try {
-        // Connect to the MongoDB server
         await client.connect();
 
         const collection = db.collection(collectionName);
 
-        // Find the document containing the userlist array
         const userData = await collection.findOne({ _id: new ObjectId(userDataId) });
 
-        // Find the user with the specified username within the userlist array
         const user = userData.userlist.find(user => user.username === username);
 
-        // Update the authToken for the found user
         if (user) {
             user.authToken = newToken;
         } else {
@@ -407,13 +393,11 @@ async function updateUserAuthToken(username, newToken) {
             return;
         }
 
-        // Update the document in the collection
         await collection.updateOne({ _id: userData._id }, { $set: { userlist: userData.userlist } })
 
     } catch (error) {
         console.error('Error updating user authToken:', error);
     } finally {
-        // Close the MongoDB connection
         await client.close();
     }
 }
@@ -487,43 +471,27 @@ async function updateWebsocketData(newWebsocketData) {
 //Effectively resets the data in the db with the sample data
 async function resetDb(){
     await updatePostData(samplePostData)
-    await updateUserData(sampleUsers)
+    await updateUserData(emptyUserList)
     await updateWebsocketData(sampleWebsocketData)
 }
 
 //These are both for testing
-let samplePost={
-    "user":"ya boy",
-    "message":"bom dia",
-    "id":"3",
-    "comment_id":1,
-    "comments": []
-}
+// let samplePost={
+//     "user":"ya boy",
+//     "message":"bom dia",
+//     "id":"3",
+//     "comment_id":1,
+//     "comments": []
+// }
 
-let sampleUser={
+// let sampleUser={
     
-    "username":"bud",
-    "password":"password",
-    "zipcode":84003,
-    "lat/long":"<latlong here>",
-    "authToken":""
+//     "username":"bud",
+//     "password":"password",
+//     "zipcode":84003,
+//     "lat/long":"<latlong here>",
+//     "authToken":""
     
-}
+// }
 
-
-// Call the function to retrieve all items
-// getAllItems();
-// organizeExports();
 module.exports = {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken, addUserDb, addPostDb, addToWebsocketDb, updatePostData, getAllUsers}
-
-//db actions needed -
-//get all items✅
-//Add user to db✅
-//modify user in db(authToken)✅
-//Addwebsocket data✅
-//Add post✅
-//Add comment✅
-
-//For resetting the DB
-// resetDb()
-// getAllUsers()

@@ -11,14 +11,11 @@ async function updateNavBar(){
 
         username.textContent = localStorage.getItem("currentUser")
 
-        // let temp = await getTemp()
         const temp = localStorage.getItem("temp")
         if(temp!=undefined){
             tempTitle.textContent = temp + '°'
         }
     }else{
-
-        console.log('here')
 
         try {
             const response = await fetch('/authenticate', {
@@ -69,7 +66,6 @@ async function getTemp(){
         }
         const responseData = await response.json();
         const temp = responseData.temperature
-        // console.log(temp)
         return temp;
     } catch (error) {
         console.error('Error fetching weather data:', error);

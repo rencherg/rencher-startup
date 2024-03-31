@@ -3,9 +3,6 @@ let errorField = document.getElementById("errormessage");
 let postData = JSON.parse(localStorage.getItem('samplePostData'))
 let postList = postData["posts"]
 
-console.log(postData)
-console.log(postList)
-
 registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
   

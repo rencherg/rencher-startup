@@ -38,13 +38,11 @@ registerForm.addEventListener("submit", (e) => {
             },
             body: JSON.stringify(data)
         }).then(response => {
-            console.log(response)
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             return response.json();
         }).then(responseBody => {
-            console.log('ok')
             if(responseBody.message === "success"){
                 localStorage.removeItem("loggedIn")
                 localStorage.removeItem("dataLoaded")

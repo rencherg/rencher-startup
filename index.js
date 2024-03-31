@@ -6,6 +6,7 @@ const uuid = require('uuid');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(cookieParser());
+const bcrypt = require('bcrypt');
 
 const {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken, addUserDb, addPostDb, addToWebsocketDb, updatePostData, getAllUsers} = require('./dao.js');
 const getWeather = require('./weather.js')
@@ -35,19 +36,21 @@ app.get('/data', async (req, res, next) => {
 //   "username": "username",
 //   "password": "password"
 // }
-
 app.post('/login', async (req, res, next) => {
   userList = await getAllUsers()
 
   found = false
   let foundUserZip
 
-  userList.forEach(element => {
-    if((req.body.username === element.username) && (req.body.password === element.password)){
-      found = true
-      foundUserZip = element.zipcode
+  for (const user of userList) {
+    const passwordComparison = await bcrypt.compare(req.body.password, user.password);
+    
+    if (req.body.username === user.username && passwordComparison) {
+      found = true;
+      foundUserZip = user.zipcode;
+      break;
     }
-  });
+  }
 
   if(found){
 
@@ -151,6 +154,8 @@ async function authenticate(username, token){
 
 app.post('/register', async (req, res) => {
 
+  let body = req.body
+
   userList = await getAllUsers()
   data = req.body
 
@@ -165,7 +170,9 @@ app.post('/register', async (req, res) => {
   if(duplicateUser){
     res.send({"message": "User already exists"});
   }else{
-    // addToUsers(req.body)
+
+    body.password = await bcrypt.hash(body.password, 10);
+
     await addUserDb(req.body)
 
     const token = uuid.v4();
@@ -195,7 +202,6 @@ app.post('/post', async (req, res, next) => {
   if(authenticationResponse.message !== 'success'){
     res.send({"message": "Error: not logged in."});
   }else{
-    // addPost(req.body)
     await addPostDb(req.body)
 
     res.send({"message": "Post added successfully."});
@@ -254,24 +260,3 @@ function setAuthUsernameCookies(res, authToken, username) {
     sameSite: 'strict',
   });
 }
-
-//Todo
-
-//get DB credentials✅
-//put them in a file✅
-//import file ✅ and make basic db call logic 1✅
-//Connect everything in the project to it 2✅
-//Password encryption 3
-//Cookies 2
-//new login endpoints 1
-
-//1 Get all users endpoint✅
-//2a Ability to generate tokens✅
-//2b Login Endpoint that returns token and weather data✅
-//3 Logout endpoint that deletes token✅
-//4 Register endpoint that also returns token and weather data✅
-//5 Remove user data from front end
-//6 Ability to check if token and username(from cookie) are valid only for new posts is this used. Returns confirmation and weather data✅
-//7 Slightly change new posts function to use the verification endpoint
-//8 Slightly change is logged in function to check for cookies
-//9 BCrypt
