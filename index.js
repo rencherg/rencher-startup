@@ -3,14 +3,14 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
 const uuid = require('uuid');
-
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 const {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken, addUserDb, addPostDb, addToWebsocketDb, updatePostData, getAllUsers} = require('./dao.js');
 const getWeather = require('./weather.js')
 
-const port = process.argv.length > 2 ? process.argv[2] : 3040;
+const port = process.argv.length > 2 ? process.argv[2] : 3050;
 
 app.use(express.static('public'));
 
@@ -23,7 +23,6 @@ app.get('/error', (req, res, next) => {
 app.get('/data', async (req, res, next) => {
   try {
     const siteData = await getAllItems()
-    // console.log(siteData)
     res.send(siteData);
   } catch (error) {
     console.error("Error:", error);
@@ -39,8 +38,6 @@ app.get('/data', async (req, res, next) => {
 
 app.post('/login', async (req, res, next) => {
   userList = await getAllUsers()
-
-  console.log(userList)
 
   found = false
   let foundUserZip
@@ -64,6 +61,8 @@ app.post('/login', async (req, res, next) => {
       "userZip": foundUserZip
     }
 
+    setAuthUsernameCookies(res, token, req.body.username)
+
     res.send(response);
   }else{
     res.send({"message": "invalid credentials"});
@@ -71,27 +70,23 @@ app.post('/login', async (req, res, next) => {
 
 });
 
-
-//Model object body that we will use
-// sampleLoginObject = {
-//   "username": "username"
-// }
 app.post('/logout', async (req, res, next) => {
-  userList = await getAllUsers()
 
-  console.log(userList)
+  const username = req.cookies['username'];
+
+  userList = await getAllUsers()
 
   found = false
 
   userList.forEach(element => {
-    if((req.body.username === element.username)){
+    if((element.username === username)){
       found = true
     }
   });
 
   if(found){
-    
-    updateUserAuthToken(req.body.username, '')
+
+    updateUserAuthToken(username, '')
 
     const response = {
       "message": "success",
@@ -103,34 +98,109 @@ app.post('/logout', async (req, res, next) => {
   }
 });
 
-//This will be changed but right now it only adds a user to the database
-app.post('/register', (req, res) => {
+//Model object body that we will use
+// sampleAuthenticateObject = {
+//   "username": "username",
+//   "token": "token"
+// }
 
-  // addToUsers(req.body)
-  addUserDb(req.body)
+app.post('/authenticate', async (req, res, next) => {
+  const token = req.cookies['token'];
+  const username = req.cookies['username'];
 
-  res.send({"message": "Data received successfully."});
+  res.send(await authenticate(username, token));
+
 });
 
-app.post('/post', (req, res, next) => {
-  // addPost(req.body)
-  addPostDb(req.body)
+async function authenticate(username, token){
 
-  res.send({"message": "Data received successfully."});
+  if(token === ''){
+    res.send({"message": "invalid credentials"});
+  }
+
+  userList = await getAllUsers()
+
+  found = false
+  let foundUserZip
+
+  userList.forEach(element => {
+    if((username === element.username) && (token === element.authToken)){
+      found = true
+      foundUserZip = element.zipcode
+    }
+  });
+
+  if(found){
+
+    const response = {
+      "message": "success",
+      "username": username,
+      "userZip": foundUserZip
+    }
+
+    return response
+  }else{
+    return({"message": "invalid credentials"});
+  }
+}
+
+app.post('/register', async (req, res) => {
+
+  userList = await getAllUsers()
+  data = req.body
+
+  duplicateUser=false
+
+  userList.forEach(user => {
+    if (data.username === user.username) {
+      duplicateUser=true
+    }
+  });
+
+  if(duplicateUser){
+    res.send({"message": "User already exists"});
+  }else{
+    // addToUsers(req.body)
+    await addUserDb(req.body)
+
+    const token = uuid.v4();
+
+    updateUserAuthToken(req.body.username, token)
+
+    const response = {
+      "message": "success",
+      "authToken": token,
+      "userZip": data.zipcode
+    }
+
+    setAuthUsernameCookies(res, token, req.body.username)
+
+    res.send(response);
+  }
+});
+
+app.post('/post', async (req, res, next) => {
+
+  const token = req.cookies['token'];
+  const username = req.cookies['username'];
+
+  authenticationResponse = await authenticate(username, token)
+
+  if(authenticationResponse.message !== 'success'){
+    res.send({"message": "Error: not logged in."});
+  }else{
+    // addPost(req.body)
+    addPostDb(req.body)
+
+    res.send({"message": "Post added successfully."});
+  }
 });
 
 app.put('/comment', async (req, res) => {
 
   req.body.postData
 
-
-  console.log('body')
-  console.log(req.body)
-
   obj = await processComment(req.body.postData, req.body.commentText, req.body.currentPostID, req.body.parentID)
-  // addToWebsocket(req.body.commentText)
-  console.log('obj: ')
-  console.log(obj.posts[0].comments[0])
   updatePostData(obj)
   addToWebsocketDb(req.body.commentText)
 
@@ -165,6 +235,20 @@ app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
 
+function setAuthUsernameCookies(res, authToken, username) {
+  res.cookie('token', authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+
+  res.cookie('username', username, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}
+
 //Todo
 
 //get DB credentials✅
@@ -178,12 +262,10 @@ app.listen(port, function () {
 //1 Get all users endpoint✅
 //2a Ability to generate tokens✅
 //2b Login Endpoint that returns token and weather data✅
-//3 Logout endpoint that deletes token
+//3 Logout endpoint that deletes token✅
 //4 Register endpoint that also returns token and weather data
 //5 Remove user data from front end
-//6 Ability to check if token (from cookie) is valid only for new posts is this used. Returns usernamen and weather data
+//6 Ability to check if token and username(from cookie) are valid only for new posts is this used. Returns confirmation and weather data✅
 //7 Slightly change new posts funciton to use the verification endpoint
 //8 Slightly change is logged in function to check for cookies
 //9 BCrypt
-
-updateUserAuthToken('rencherg', 'nviorenvjufikren')

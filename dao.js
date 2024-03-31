@@ -377,8 +377,6 @@ async function addUserDb(obj) {
             { $push: { "userlist": obj } }
         );
 
-        console.log('New post added successfully');
-
     } catch (error) {
         console.error('Error updating document:', error);
     } finally {

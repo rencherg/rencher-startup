@@ -36,7 +36,8 @@ registerForm.addEventListener("submit", (e) => {
                     "username":username.value,
                     "password":password.value,
                     "zipcode":zip.value,
-                    "lat/long":"<latlong here>"
+                    "lat/long":"<latlong here>",
+                    "authToken":""
                 }
 
         fetch('/register', {
