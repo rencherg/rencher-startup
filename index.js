@@ -15,6 +15,8 @@ const port = process.argv.length > 2 ? process.argv[2] : 3050;
 
 app.use(express.static('public'));
 
+const { WebSocketServer } = require('ws');
+
 // Error middleware
 app.get('/error', (req, res, next) => {
   throw new Error('Error: Resource not found');
@@ -214,7 +216,8 @@ app.put('/comment', async (req, res) => {
 
   obj = await processComment(req.body.postData, req.body.commentText, req.body.currentPostID, req.body.parentID)
   updatePostData(obj)
-  addToWebsocketDb(req.body.commentText)
+  // addToWebsocketDb(req.body.commentText)
+  sendMessageWebsocket(req.body.commentText)
 
   res.send({"message": "ok"});
 });
@@ -237,15 +240,7 @@ app.get('/weather/:zip', async (req, res) => {
   res.send(temp);
 })
 
-app.use(function (err, req, res, next) {
-  res.status(500).send({type: err.name, message: err.message});
-});
-
-// Listening to a network port
-// const port = 8080;
-app.listen(port, function () {
-  console.log(`Listening on port ${port}`);
-});
+const wss = new WebSocketServer({ noServer: true });
 
 function setAuthUsernameCookies(res, authToken, username) {
   res.cookie('token', authToken, {
@@ -259,4 +254,63 @@ function setAuthUsernameCookies(res, authToken, username) {
     httpOnly: true,
     sameSite: 'strict',
   });
+}
+
+app.use(function (err, req, res, next) {
+  res.status(500).send({type: err.name, message: err.message});
+});
+
+// Listening to a network port
+// const port = 8080;
+server = app.listen(port, function () {
+  console.log(`Listening on port ${port}`);
+});
+
+// Handle the protocol upgrade from HTTP to WebSocket
+server.on('upgrade', (request, socket, head) => {
+  wss.handleUpgrade(request, socket, head, function done(ws) {
+    wss.emit('connection', ws, request);
+  });
+});
+
+// Keep track of all the connections so we can forward messages
+let connections = [];
+let id = 0;
+
+wss.on('connection', (ws) => {
+  const connection = { id: ++id, alive: true, ws: ws };
+  connections.push(connection);
+
+  // Remove the closed connection so we don't try to forward anymore
+  ws.on('close', () => {
+    const pos = connections.findIndex((o, i) => o.id === connection.id);
+
+    if (pos >= 0) {
+      connections.splice(pos, 1);
+    }
+  });
+
+  // Respond to pong messages by marking the connection alive
+  ws.on('pong', () => {
+    connection.alive = true;
+  });
+});
+
+// Keep active connections alive
+setInterval(() => {
+  connections.forEach((c) => {
+    // Kill any connection that didn't respond to the ping last time
+    if (!c.alive) {
+      c.ws.terminate();
+    } else {
+      c.alive = false;
+      c.ws.ping();
+    }
+  });
+}, 10000);
+
+function sendMessageWebsocket(message){
+  connections.forEach((connection)=>{
+    connection.ws.send(message)
+  })
 }
