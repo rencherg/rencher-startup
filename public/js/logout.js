@@ -15,6 +15,8 @@ async function logout(){
     
             localStorage.removeItem("loggedIn");
             localStorage.removeItem("currentUser");
+            localStorage.removeItem("zipcode");
+            localStorage.removeItem("temp");
             window.location.href = "/";
             
         } catch (error) {

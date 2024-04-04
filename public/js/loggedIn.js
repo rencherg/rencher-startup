@@ -11,6 +11,10 @@ async function updateNavBar(){
 
         username.textContent = localStorage.getItem("currentUser")
 
+        if(!localStorage.getItem("temp")){
+            localStorage.setItem("temp", await getTemp())
+        }
+
         const temp = localStorage.getItem("temp")
         if(temp!=undefined){
             tempTitle.textContent = temp + '°'
