@@ -88,6 +88,25 @@ For this deliverable the application was given a good looking and uniform style
 - **3rd Part Service** - Third party endpoint is used to display the temperature at the user's current location
 - **Endpoints** - Backend provides service endpoints and frontend calls them
 
+## Login Deliverable
+
+- **User Registration** - Users are allowed to register using a username, password and zip code. Credentials are stored in the database and the password is encrypted. An auth token is returned as a cookie.
+- **Existing User Authentication** - Users can login using their username and password. After the initial login an authtoken is returned as a cookie and is used to authenticate
+- **Application Data Storage** - All application data like posts, comments, and user data is stored in the MongoDB database.
+- **Application Credential Storage** - User credentials are stored in the database after registration and are used to login, authenticate, and return zip code data
+- **Funcionality Restriction** - Only logged in users are allowed to make new posts however anyone can comment. Auth tokens are checked on the front and backend to prevent hacking.
+
+To login go to the login page and use the following information for testing
+
+## Websocket Deliverable
+
+- **Backend Listens for Websocket Connection** - Backend waits for the frontend to make the connection
+- **Frontend Makes Websocket Connection** - Websocket connection is made by the frontend
+- **Websocket Data Retrieval** - Whenever any comment is made to any post, the comment is sent over websocket
+- **Websocket Data Display** - Websocket data is displayed on its own page
+
+- **Tip for Testing the Application Websocket** - Open one tab to the websocket page and another on any post. Start commenting on the post(You don't need to be logged in to comment) and you should see your comments start to appear on the websocket page.
+
 To login go to the login page and use the following information for testing
 
 username: test
