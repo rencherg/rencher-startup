@@ -105,6 +105,7 @@ To login go to the login page and use the following information for testing
 - **Websocket Data Retrieval** - Whenever any comment is made to any post, the comment is sent over websocket
 - **Websocket Data Display** - Websocket data is displayed on its own page
 
+
 - **Tip for Testing the Application Websocket** - Open one tab to the websocket page and another on any post. Start commenting on the post(You don't need to be logged in to comment) and you should see your comments start to appear on the websocket page.
 
 To login go to the login page and use the following information for testing
