@@ -7,6 +7,8 @@ function addInputField(id) {
     document.getElementById(id).appendChild(input);
 }
 
+
+
 // data = {
 //     "posts":[
 //     {

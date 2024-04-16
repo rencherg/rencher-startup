@@ -1,4 +1,3 @@
-// const cookieParser = require('cookie-parser');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
@@ -9,22 +8,23 @@ app.use(cookieParser());
 const bcrypt = require('bcrypt');
 
 const {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken, addUserDb, addPostDb, addToWebsocketDb, updatePostData, getAllUsers} = require('./dao.js');
-const getWeather = require('./weather.js')
+const getWeather = require('/Users/rencherga/Desktop/260/rencher-startup/service/weather.js')
 
-const port = process.argv.length > 2 ? process.argv[2] : 3050;
+const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 app.use(express.static('public'));
 
 const { WebSocketServer } = require('ws');
 
 // Error middleware
-app.get('/error', (req, res, next) => {
+app.get('/error', (req, res) => {
   throw new Error('Error: Resource not found');
 });
 
 //getting backend data
-app.get('/data', async (req, res, next) => {
+app.get('/data', async (req, res) => {
   try {
+
     const siteData = await getAllItems()
     res.send(siteData);
   } catch (error) {

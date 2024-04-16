@@ -1,4 +1,4 @@
-const config = require('./dbConfig.json');
+const config = require('/Users/rencherga/Desktop/260/rencher-startup/service/dbConfig.json');
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const { MongoClient, ObjectId } = require('mongodb');
 
@@ -259,9 +259,7 @@ async function getAllItems() {
 
     try {
         await client.connect();
-
         const collection = db.collection(collectionName);
-
         const postData = await collection.findOne({ _id: new ObjectId(postDataId) });
         const websocketData = await collection.findOne({ _id: new ObjectId(websocketDataId) });
 
