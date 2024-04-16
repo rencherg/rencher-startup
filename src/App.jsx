@@ -4,7 +4,7 @@ import './app.css';
 
 export default function App() {
     return (
-      <div className='parent'>
+      <div className='parent-class'>
 
         <header>
             <h2 className="header-left nav-title"><a href="index.html">PubForum</a></h2>

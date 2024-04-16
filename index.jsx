@@ -11,7 +11,6 @@ root.render(<App />);
 //     Root file specified for compilation
 
 // What needs to be done?
-// More code in app.jsx
 // OG code in app.jsx
 // App.jsx router
 // App functioning
