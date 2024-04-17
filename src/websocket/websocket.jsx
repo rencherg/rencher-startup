@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function About() {
+export function Websocket() {
   return (
     <main>
       <h1>All Recent Comments(Websocket)</h1>

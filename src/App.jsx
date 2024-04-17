@@ -4,6 +4,11 @@ import React from 'react';
 import './app.css';
 import { About } from './about/about';
 import { PostLinks } from './post-links/post-links';
+import { Login } from './login/login';
+import { NewPost } from './new-post/new-post';
+import { Post } from './post/post';
+import { Register } from './register/register';
+import { Websocket } from './websocket/websocket';
 
 
 export default function App() {
@@ -22,6 +27,11 @@ export default function App() {
                 <Routes>
                     <Route path='/' element={<PostLinks />} exact />
                     <Route path='/about' element={<About />} />
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/post' element={<Post />} />
+                    <Route path='/newpost' element={<NewPost />} />
+                    <Route path='/register' element={<Register />} />
+                    <Route path='/websocket' element={<Websocket />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
 
