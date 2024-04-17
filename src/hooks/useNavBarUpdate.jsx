@@ -60,7 +60,7 @@ export function useNavBarUpdate() {
 
   async function getTemp() {
     const zipCode = localStorage.getItem('zipcode');
-    const url = '/api/weather' + zipCode;
+    const url = '/api/weather/' + zipCode;
 
     try {
       const response = await fetch(url);
