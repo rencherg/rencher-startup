@@ -21,7 +21,7 @@ export function useNavBarUpdate() {
             setTempTitle(temp + '°');
           }
         } else {
-          const response = await fetch('http://localhost:3000/authenticate', {
+          const response = await fetch('/api/authenticate', {
             method: 'POST',
           });
 
@@ -60,7 +60,7 @@ export function useNavBarUpdate() {
 
   async function getTemp() {
     const zipCode = localStorage.getItem('zipcode');
-    const url = 'http://localhost:3000/weather/' + zipCode;
+    const url = '/api/weather' + zipCode;
 
     try {
       const response = await fetch(url);

@@ -15,6 +15,7 @@ import { sampleData } from './hooks/sampleData';
 export default function App() {
     sampleData()
     const { loginTitle, tempTitle, username } = useNavBarUpdate();
+    // const { loginTitle, tempTitle, username } = 'test'
     return (
         <BrowserRouter>
             <div className='parent-class'>

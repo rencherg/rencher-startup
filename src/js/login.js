@@ -13,6 +13,7 @@ loginForm.addEventListener("submit", async (e) => {
     }
 
     try {
+
         const response = await fetch('/login', {
           method: 'POST',
           headers: {

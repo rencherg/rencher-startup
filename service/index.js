@@ -18,40 +18,42 @@ app.set('trust proxy', true);
 
 const { WebSocketServer } = require('ws');
 
-const whitelist = ['http://localhost:5173', 'http://192.168.1.100:5173'];
+// const whitelist = ['http://localhost:5173', 'http://192.168.1.100:5173', 'http://localhost:5173/login'];
 
-// CORS options
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      // Allow requests from whitelisted origins or if the origin is null (e.g., non-browser requests)
-      callback(null, true);
-    } else {
-      // Deny requests from other origins
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-};
+// // CORS options
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1 || !origin) {
+//       // Allow requests from whitelisted origins or if the origin is null (e.g., non-browser requests)
+//       callback(null, true);
+//     } else {
+//       // Deny requests from other origins
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+// };
+
+app.use(cors());
 
 // Enable CORS with custom options
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // Router for service endpoints
-// const apiRouter = express.Router();
-// app.use(`/api`, apiRouter);
+const apiRouter = express.Router();
+app.use(`/api`, apiRouter);
 
 // Error middleware
-app.get('/error', (req, res) => {
+apiRouter.get('/error', (req, res) => {
   throw new Error('Error: Resource not found');
 });
 
 // testing
-app.get('', (req, res) => {
+apiRouter.get('', (req, res) => {
   res.send('{\'message\': \'good\'}');
 });
 
 //getting backend data
-app.get('/data', async (req, res) => {
+apiRouter.get('/data', async (req, res) => {
   try {
 
     const siteData = await getAllItems()
@@ -67,7 +69,7 @@ app.get('/data', async (req, res) => {
 //   "username": "username",
 //   "password": "password"
 // }
-app.post('/login', async (req, res, next) => {
+apiRouter.post('/login', async (req, res, next) => {
   userList = await getAllUsers()
 
   found = false
@@ -100,12 +102,12 @@ app.post('/login', async (req, res, next) => {
 
     res.send(response);
   }else{
-    res.send({"message": "invalid credentials"});
+    res.send({"message": "invalid credentials!"});
   }
 
 });
 
-app.post('/logout', async (req, res, next) => {
+apiRouter.post('/logout', async (req, res, next) => {
 
   const username = req.cookies['username'];
 
@@ -143,7 +145,7 @@ app.post('/logout', async (req, res, next) => {
 // }
 
 //It will only work if the user is logged in
-app.post('/authenticate', async (req, res, next) => {
+apiRouter.post('/authenticate', async (req, res, next) => {
   const token = req.cookies['token'];
   const username = req.cookies['username'];
 
@@ -183,7 +185,7 @@ async function authenticate(username, token){
   }
 }
 
-app.post('/register', async (req, res) => {
+apiRouter.post('/register', async (req, res) => {
 
   let body = req.body
 
@@ -223,7 +225,7 @@ app.post('/register', async (req, res) => {
   }
 });
 
-app.post('/post', async (req, res, next) => {
+apiRouter.post('/post', async (req, res, next) => {
 
   const token = req.cookies['token'];
   const username = req.cookies['username'];
@@ -239,7 +241,7 @@ app.post('/post', async (req, res, next) => {
   }
 });
 
-app.put('/comment', async (req, res) => {
+apiRouter.put('/comment', async (req, res) => {
 
   req.body.postData
 
@@ -251,7 +253,7 @@ app.put('/comment', async (req, res) => {
   res.send({"message": "ok"});
 });
 
-app.get('/weather/:zip', async (req, res) => {
+apiRouter.get('/weather/:zip', async (req, res) => {
 
   const { zip } =  await req.params;
 
@@ -272,6 +274,7 @@ app.get('/weather/:zip', async (req, res) => {
 const wss = new WebSocketServer({ noServer: true });
 
 function setAuthUsernameCookies(res, authToken, username) {
+  console.log('here')
   res.cookie('token', authToken, {
     secure: true,
     httpOnly: true,

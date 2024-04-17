@@ -11,9 +11,15 @@ root.render(<App />);
 //     Root file specified for compilation
 
 // What needs to be done?
+// Finish the links, backend
 // Convert js to hook components
+// Finish Login
+// Register
+// Logout
+// Authenticate
 // url params
-// links
+// View post, comments
+// New Post
+// Main comment
+// Websocket
 // deployment
-
-

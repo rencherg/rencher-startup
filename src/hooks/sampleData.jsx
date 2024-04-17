@@ -1,14 +1,12 @@
 import { useEffect } from 'react';
 
-debugger;
-
 export function sampleData() {
   useEffect(() => {
     async function loadData() {
       if (!localStorage.getItem("dataLoaded")){
 
         try{
-          const response = await fetch('http://localhost:3000/data', {
+          const response = await fetch('/api/data', {
               method: 'GET',
           })
   
