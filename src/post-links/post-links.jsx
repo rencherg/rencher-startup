@@ -28,7 +28,7 @@ export function PostLinks() {
     }
 
     loadData();
-  }, []); // Run only once when component mounts
+  }, []);
 
   return (
     <main>
@@ -36,7 +36,7 @@ export function PostLinks() {
       <div className="websocket-content main-link">
         {posts.map(post => (
           <div key={post.id}>
-            <a href={'post.html?id=' + post.id}>{post.message}</a>
+            <NavLink to={`/post/${post.id}`}>{post.message.slice(0,100)}</NavLink>
             <p>By {post.user}</p>
           </div>
         ))}

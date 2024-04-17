@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
 
 export function Register() {
 
@@ -90,7 +89,7 @@ export function Register() {
               <input type="password" id="password-confirm" name="password-confirm" value={confirmPassword} onChange={handleConfirmPasswordChange}></input><br></br>
               <input type="submit" className="form-button" value="Submit"></input>
           </div>
-      </form> 
+      </form>
       <div id="error-message"><p className="form-content">{errorMessage}</p></div>
     </main>
   );
