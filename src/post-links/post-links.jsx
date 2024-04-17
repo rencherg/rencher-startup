@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export function PostLinks() {
   return (
@@ -7,8 +8,8 @@ export function PostLinks() {
       <div className="websocket-content main-link"> 
       </div>
       <br />
-      <h3><a className="main-link-index" href="websocket.html">All recent content (Websocket)</a></h3>
-      <h3><a className="main-link-index" href="newpost.html">New Post</a></h3>
+      <h3><NavLink className="main-link-index" to='websocket'>All recent content (Websocket)</NavLink></h3>
+      <h3><NavLink className="main-link-index" to='newpost'>New Post</NavLink></h3>
     </main>
   );
 }

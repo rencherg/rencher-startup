@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export function Login() {
   return (
@@ -14,7 +15,7 @@ export function Login() {
               <input className="form-button" type="submit" value="Submit" />
           </div>
       </form>
-      <p className="form-content">Don't have an account? <a id="main-link" href="register.html">Sign up!</a></p>
+      <p className="form-content">Don't have an account? <NavLink className="main-link" to='/register'>Sign up!</NavLink></p>
       <div id="incorrectDiv"></div>
       
       <img className="form-img" src="https://miro.medium.com/v2/resize:fit:1040/1*QggSrc9qoOMYXwlnneA1Ww.jpeg" />

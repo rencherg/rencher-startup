@@ -17,10 +17,10 @@ export default function App() {
             <div className='parent-class'>
 
                 <header>
-                    <h2 className="header-left nav-title"><a href="index.html">PubForum</a></h2>
-                    <h2 className="header-left nav-subtitle"><a href="about.html">About</a></h2>
+                    <h2 className="header-left nav-title"><NavLink to=''>PubForum</NavLink></h2>
+                    <h2 className="header-left nav-subtitle"><NavLink to='about'>About</NavLink></h2>
                     <h2 id="temp" className="header-right nav-subtitle "></h2>
-                    <h2 className="header-right nav-subtitle "><a href="login.html" id="login-logout">Login</a></h2>
+                    <h2 className="header-right nav-subtitle "><NavLink id='login-logout' to='login'>Login</NavLink></h2>
                     <h2 className="header-right nav-subtitle dissapearing-bar-item" id="username"></h2>
                 </header>
 
