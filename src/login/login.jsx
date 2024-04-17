@@ -6,6 +6,8 @@ export function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  logout()
+
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   }
@@ -67,10 +69,38 @@ export function Login() {
           </div>
       </form>
       <p className="form-content">Don't have an account? <NavLink className="main-link" to='/register'>Sign up!</NavLink></p>
-      <div id="incorrectDiv">{errorMessage}</div>
+      <div id="incorrectDiv"><p className="form-content">{errorMessage}</p></div>
       
       <img className="form-img" src="https://miro.medium.com/v2/resize:fit:1040/1*QggSrc9qoOMYXwlnneA1Ww.jpeg" alt="Matrix" />
       <p className="form-content">Dare to take the red pill</p>
     </main>
   );
+}
+
+async function logout(){
+
+  if(localStorage.getItem("loggedIn")){
+
+      try {
+          const response = await fetch('api/logout', {
+              method: 'POST',
+          });
+      
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+      
+          await response.json();
+  
+          localStorage.removeItem("loggedIn");
+          localStorage.removeItem("currentUser");
+          localStorage.removeItem("zipcode");
+          localStorage.removeItem("temp");
+          window.location.href = "/";
+          
+      } catch (error) {
+          console.error('There was a problem with your fetch operation:', error);
+          throw error;
+      }
+  }
 }

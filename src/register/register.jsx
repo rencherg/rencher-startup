@@ -91,7 +91,7 @@ export function Register() {
               <input type="submit" className="form-button" value="Submit"></input>
           </div>
       </form> 
-      <div id="error-message">{errorMessage}</div>
+      <div id="error-message"><p className="form-content">{errorMessage}</p></div>
     </main>
   );
 }

@@ -14,8 +14,8 @@ root.render(<App />);
 // Finish the links, backend✅
 // Convert js to hook components
 // Finish Login✅
-// Register
-// Logout
+// Register✅
+// Logout✅
 // Authenticate✅
 // url params
 // View post, comments
