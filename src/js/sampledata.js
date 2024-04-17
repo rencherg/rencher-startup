@@ -3,6 +3,8 @@ async function sampleData(){
 
         try{
 
+            console.log('hello')
+
             const response = await fetch('/data', {
                 method: 'GET',
             })

@@ -12,5 +12,6 @@ root.render(<App />);
 
 // What needs to be done?
 // App functioning with components
+// Hooks
 
 

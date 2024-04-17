@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(cookieParser());
 const bcrypt = require('bcrypt');
+const cors = require('cors');
 
 const {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken, addUserDb, addPostDb, addToWebsocketDb, updatePostData, getAllUsers} = require('/Users/rencherga/Desktop/260/rencher-startup/service/dao.js');
 const getWeather = require('/Users/rencherga/Desktop/260/rencher-startup/service/weather.js')
@@ -13,12 +14,40 @@ const getWeather = require('/Users/rencherga/Desktop/260/rencher-startup/service
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 app.use(express.static('public'));
+app.set('trust proxy', true);
 
 const { WebSocketServer } = require('ws');
+
+const whitelist = ['http://localhost:5173', 'http://192.168.1.100:5173'];
+
+// CORS options
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      // Allow requests from whitelisted origins or if the origin is null (e.g., non-browser requests)
+      callback(null, true);
+    } else {
+      // Deny requests from other origins
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+// Enable CORS with custom options
+app.use(cors(corsOptions));
+
+// Router for service endpoints
+// const apiRouter = express.Router();
+// app.use(`/api`, apiRouter);
 
 // Error middleware
 app.get('/error', (req, res) => {
   throw new Error('Error: Resource not found');
+});
+
+// testing
+app.get('', (req, res) => {
+  res.send('{\'message\': \'good\'}');
 });
 
 //getting backend data
