@@ -1,7 +1,7 @@
-let postData = localStorage.getItem('samplePostData')
-let loadedPosts=JSON.parse(postData)
+    let postData = localStorage.getItem('samplePostData')
+    let loadedPosts=JSON.parse(postData)
 
-let divParent = document.querySelector('.main-link');
+    let divParent = document.querySelector('.main-link');
 
 async function loadData() {
     return new Promise((resolve, reject) => {

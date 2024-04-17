@@ -11,7 +11,9 @@ root.render(<App />);
 //     Root file specified for compilation
 
 // What needs to be done?
-// App functioning with components
-// Hooks
+// Convert js to hook components
+// url params
+// links
+// deployment
 
 

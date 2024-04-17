@@ -8,9 +8,13 @@ import { NewPost } from './new-post/new-post';
 import { Post } from './post/post';
 import { Register } from './register/register';
 import { Websocket } from './websocket/websocket';
+import { useNavBarUpdate } from './hooks/useNavBarUpdate';
+import { sampleData } from './hooks/sampleData';
 
 
 export default function App() {
+    sampleData()
+    const { loginTitle, tempTitle, username } = useNavBarUpdate();
     return (
         <BrowserRouter>
             <div className='parent-class'>
@@ -18,9 +22,9 @@ export default function App() {
                 <header>
                     <h2 className="header-left nav-title"><NavLink to=''>PubForum</NavLink></h2>
                     <h2 className="header-left nav-subtitle"><NavLink to='about'>About</NavLink></h2>
-                    <h2 id="temp" className="header-right nav-subtitle "></h2>
-                    <h2 className="header-right nav-subtitle "><NavLink id='login-logout' to='login'>Login</NavLink></h2>
-                    <h2 className="header-right nav-subtitle dissapearing-bar-item" id="username"></h2>
+                    <h2 id="temp" className="header-right nav-subtitle ">{tempTitle}</h2>
+                    <h2 className="header-right nav-subtitle "><NavLink id='login-logout' to='login'>{loginTitle}</NavLink></h2>
+                    <h2 className="header-right nav-subtitle dissapearing-bar-item" id="username">{username}</h2>
                 </header>
 
                 <Routes>
@@ -39,8 +43,6 @@ export default function App() {
                         <p className="footer-title footer-inside">2024 Grant Rencher</p><a className="footer-inside footer-svg" href="https://github.com/rencherg"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
                     </div>
                 </footer>
-                <script src="js/sampledata.js"></script>
-                <script src="js/loggedIn.js"></script>
             </div>
         </BrowserRouter> 
     );
@@ -49,32 +51,3 @@ export default function App() {
 function NotFound() {
     return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;
 }
-
-debugger;
-
-async function sampleData(){
-    if (!localStorage.getItem("dataLoaded")){
-
-        try{
-
-            const response = await fetch('http://localhost:3000/data', {
-                method: 'GET',
-            })
-    
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-        
-            const responseData = await response.json()
-    
-            localStorage.setItem("samplePostData", JSON.stringify(responseData.samplePostData));
-            localStorage.setItem("dataLoaded", true);
-            localStorage.setItem("sampleWebsocketData", JSON.stringify(responseData.sampleWebsocketData));
-
-        } catch(error) {
-            console.error('There was a problem with your fetch operation:', error);
-        };
-    }
-}
-
-sampleData()
