@@ -53,7 +53,7 @@ let samplePostData = {
     "posts":[
     {
         "user":"rencherg",
-        "message":"This is my sample post, click on me or any comment to make a comment",
+        "message":"This is my sample post, feel free to make a comment",
         "id":1,
         "comment_id":15,
         "comments": [
@@ -491,5 +491,7 @@ async function resetDb(){
 //     "authToken":""
     
 // }
+
+resetDb()
 
 module.exports = {processComment, addToUsers, addPost, addToWebsocket, getAllItems, updateUserAuthToken, addUserDb, addPostDb, addToWebsocketDb, updatePostData, getAllUsers}
