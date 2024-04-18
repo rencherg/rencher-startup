@@ -108,6 +108,13 @@ To login go to the login page and use the following information for testing
 
 - **Tip for Testing the Application Websocket** - Open one tab to the websocket page and another on any post. Start commenting on the post(You don't need to be logged in to comment) and you should see your comments start to appear on the websocket page.
 
+- ## React Deliverable
+
+- **Bundled using Vite** - Vite is used to bundle the application
+- **Multiple functional react components** - All files that were HTML are now react components
+- **React router** - React Router and Navlinks are used to display the different components
+- **React hooks** - Multiple React hooks are used throughout the application (If you are looking for some hooks in the code some can be found in /src/login, /src/hooks, /src/new-post)
+
 To login go to the login page and use the following information for testing
 
 username: test
