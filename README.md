@@ -115,6 +115,8 @@ To login go to the login page and use the following information for testing
 - **React router** - React Router and Navlinks are used to display the different components
 - **React hooks** - Multiple React hooks are used throughout the application (If you are looking for some hooks in the code some can be found in /src/login, /src/hooks, /src/new-post)
 
+- Note: In previous deliverables the comments of a post had indents marking which comments were replying to which but in this deliverable that was changed to a more traditional list of comments without intents. Commenting and posting still function normally though.
+
 To login go to the login page and use the following information for testing
 
 username: test
