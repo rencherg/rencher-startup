@@ -10,7 +10,7 @@ export function PostLinks() {
         // Check if data is already loaded in localStorage
         const dataLoaded = localStorage.getItem('dataLoaded');
         if (!dataLoaded) {
-          const response = await fetch('http://localhost:3000/data');
+          const response = await fetch('/api/data');
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }

@@ -17,8 +17,8 @@ root.render(<App />);
 // Register✅
 // Logout✅
 // Authenticate✅
-// url params
-// View post, comments
+// url params✅
+// View post, comments✅
 // New Post
 // Main comment
 // Websocket

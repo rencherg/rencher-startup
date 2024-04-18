@@ -274,7 +274,6 @@ apiRouter.get('/weather/:zip', async (req, res) => {
 const wss = new WebSocketServer({ noServer: true });
 
 function setAuthUsernameCookies(res, authToken, username) {
-  console.log('here')
   res.cookie('token', authToken, {
     secure: true,
     httpOnly: true,

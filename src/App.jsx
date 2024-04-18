@@ -1,5 +1,5 @@
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './app.css';
 import { About } from './about/about';
 import { PostLinks } from './post-links/post-links';
@@ -15,6 +15,7 @@ import { sampleData } from './hooks/sampleData';
 export default function App() {
     sampleData()
     const { loginTitle, tempTitle, username } = useNavBarUpdate();
+
     return (
         <BrowserRouter>
             <div className='parent-class'>
