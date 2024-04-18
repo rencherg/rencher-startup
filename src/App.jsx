@@ -7,7 +7,7 @@ import { Login } from './login/login';
 import { NewPost } from './new-post/new-post';
 import Post from './post/post.jsx';
 import { Register } from './register/register';
-import { Websocket } from './websocket/websocket';
+import Websocket from './websocket/websocket.jsx';
 import { useNavBarUpdate } from './hooks/useNavBarUpdate';
 import { sampleData } from './hooks/sampleData';
 
