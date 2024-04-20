@@ -127,3 +127,20 @@ Or you can create your own temporary account at the register page
 If you register for a new account make sure to put in a valid zip code so that the temperature at your location can be shown
 
 When you view a post go into the post and click on any comment or the post itself and then make your comment. You need to be logged in to post but not to comment.
+
+
+Final Exam notes:
+
+PM2 is a server daemon that forks other processes that are running
+
+Port 80 is reserved for HTTP
+
+300 error codes are for redirects or caching
+
+Language is not a standard http header - Content type, host, and cookies are
+
+HTTPS is 443
+
+SSH is specified by the programmer but is 22 by default
+
+JSX allows for HTML composability but does not work to combine js, html, and css
